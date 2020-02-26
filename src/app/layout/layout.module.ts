@@ -11,7 +11,8 @@ import { BottombarComponent } from './bottombar/bottombar.component';
   declarations: [
     ShowroomComponent,
     SidebarComponent,
-    BottombarComponent],
+    BottombarComponent
+  ],
   imports: [
     CoreModule,
     SharedModule
