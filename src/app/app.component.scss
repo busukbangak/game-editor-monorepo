@@ -2,8 +2,8 @@
     width: 100%;
     height: 100%;
     display: grid;
-    grid-template-columns: 300px 1.6fr;
-    grid-template-rows: 1.5fr 0.5fr;
+    grid-template-columns: 350px 1.6fr;
+    grid-template-rows: 1.5fr 250px;
     grid-template-areas: "sidebar showroom" "sidebar bottombar";
 }
 
