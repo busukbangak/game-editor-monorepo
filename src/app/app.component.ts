@@ -8,8 +8,8 @@ import { TranslateService } from '@ngx-translate/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  constructor(public electronService: ElectronService, private translate: TranslateService) {
-    this.translate.setDefaultLang('en');
+  constructor(public electronService: ElectronService, private translateService: TranslateService) {
+    this.translateService.setDefaultLang('de');
     if (electronService.isElectron) {
       console.log('Running on electron mode');
     } else {
