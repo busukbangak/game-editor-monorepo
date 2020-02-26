@@ -1,9 +1,10 @@
 import { NgModule } from '@angular/core';
 
 
+
 @NgModule({
   declarations: [],
-  imports: [],
-  exports: []
+  imports: [
+  ]
 })
-export class SharedModule {}
+export class DataModule { }
