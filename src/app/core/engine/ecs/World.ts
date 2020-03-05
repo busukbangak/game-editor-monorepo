@@ -1,5 +1,8 @@
 import { Entity } from "./entities/Entity";
 import { System } from "./systems/System";
+import { Scene } from "./components/Scene";
+import { Camera } from "./components/Camera";
+import { Transform } from "./components/Transform";
 
 export class World {
 
@@ -17,13 +20,19 @@ export class World {
 
     initialize() {
         for (let system of this.systems) {
-            system.initialize(this.entities);
+            system.initialize(this.entities.filter((entity) => {
+                if (entity.hasComponents(system.queries)) {
+                    return entity;
+                }
+            }));
         }
+
+
     }
 
     createEntity() {
         let entity = new Entity();
-        this.entities.push(entity)  
+        this.entities.push(entity)
         return entity;
     }
 
@@ -61,9 +70,13 @@ export class World {
             return;
         }
 
-        for (let key in this.systems) {
-            if (this.systems[key].enabled) {
-                this.systems[key].update(tick, this.entities)
+        for (let system of this.systems) {
+            if (system.enabled) {
+                system.update(tick, this.entities.filter((entity) => {
+                    if (entity.hasComponents(system.queries)) {
+                        return entity;
+                    }
+                }))
             }
         }
     }

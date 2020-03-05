@@ -1,13 +1,13 @@
 import { System } from './System';
 import { Entity } from '../entities/Entity';
-import { Scene } from '../components/Scene';
+import { Model } from '../components/Model';
 
-export class SceneSystem extends System {
+export class ModelSystem extends System {
 
 
     constructor() {
         super();
-        this.queries = [Scene];
+        this.queries = [Model];
 
     }
 
@@ -18,7 +18,7 @@ export class SceneSystem extends System {
 
 
     update(tick: number, entities: Entity[]) {
-
+        
     }
 
 

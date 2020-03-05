@@ -3,13 +3,13 @@ import { Entity } from "../entities/Entity";
 
 export abstract class System {
 
-    queries: Component[];
+    queries: Array<new (...args: any) => Component>;
 
     enabled: boolean;
 
-    constructor(queries?: Component[]) {
+    constructor() {
         this.enabled = true;
-        this.queries = queries;
+        this.queries = [];
     }
 
     abstract initialize(entities: Entity[]);

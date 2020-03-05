@@ -4,6 +4,8 @@ import { Scene } from './ecs/components/Scene';
 import { Transform } from './ecs/components/Transform';
 import { Camera } from './ecs/components/Camera';
 import { Model } from './ecs/components/Model';
+import { CameraSystem } from './ecs/systems/CameraSystem';
+import { ModelSystem } from './ecs/systems/ModelSystem';
 
 
 export class Application {
@@ -19,6 +21,7 @@ export class Application {
         // create game world
         this.world = new World();
 
+        // create entities
         let camera = this.world.createEntity()
             .addComponent(Scene, {id: '0'})
             .addComponent(Transform)
@@ -29,7 +32,10 @@ export class Application {
             .addComponent(Transform)
             .addComponent(Model, {mesh: 'Box', material: 'Gray'})
 
+        // create systems
         this.world.createSystem(SceneSystem);
+        this.world.createSystem(CameraSystem);
+        this.world.createSystem(ModelSystem);
 
         this.start();
 

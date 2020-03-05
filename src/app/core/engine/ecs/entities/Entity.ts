@@ -26,7 +26,7 @@ export class Entity {
                 }
             }
         }
-        
+
         this.components.push(component);
         return this;
     }
@@ -34,13 +34,22 @@ export class Entity {
     removeComponent(component: Component) {
     }
 
-    hasComponent<T extends Component>(Component: new (...args: any) => T) {
+    hasComponent<T extends Component>(QueriedComponent: new (...args: any) => T) {
         for (let component of this.components) {
-            if (component instanceof Component) {
+            if (component instanceof QueriedComponent) {
                 return true;
             }
         }
         return false;
+    }
+
+    hasComponents<T extends Component>(QueriedComponents: Array<new (...args: any) => T>) {
+        for (let QueriedComponent of QueriedComponents) {
+            if (!this.hasComponent(QueriedComponent)) {
+                return false;
+            }
+        }
+        return true;
     }
 
     getComponent<T extends Component>(Component: new (...args: any) => T) {
