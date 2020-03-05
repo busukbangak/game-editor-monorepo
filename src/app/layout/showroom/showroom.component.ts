@@ -20,8 +20,7 @@ export class ShowroomComponent implements OnInit, AfterViewInit {
   }
 
   ngAfterViewInit(): void {
-    this.engineService.createScene(this.canvas);
-    this.engineService.animate();
+    this.engineService.createApplication(this.canvas.nativeElement);
   }
 
 
