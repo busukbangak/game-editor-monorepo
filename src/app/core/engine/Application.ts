@@ -1,11 +1,14 @@
 import { World } from './ecs/World';
-import { SceneSystem } from './ecs/systems/SceneSystem'
 import { Scene } from './ecs/components/Scene';
 import { Transform } from './ecs/components/Transform';
 import { Camera } from './ecs/components/Camera';
 import { Model } from './ecs/components/Model';
+import { Light } from './ecs/components/Light';
 import { CameraSystem } from './ecs/systems/CameraSystem';
 import { ModelSystem } from './ecs/systems/ModelSystem';
+import { LightSystem } from './ecs/systems/LightSystem';
+import { SceneSystem } from './ecs/systems/SceneSystem'
+import { TransformSystem } from './ecs/systems/Transformsystem';
 
 
 export class Application {
@@ -21,21 +24,30 @@ export class Application {
         // create game world
         this.world = new World();
 
-        // create entities
-        let camera = this.world.createEntity()
-            .addComponent(Scene, {id: '0'})
+        // create scene
+        this.world.createEntity()
+            .addComponent(Scene, { id: '0' })
             .addComponent(Transform)
             .addComponent(Camera)
 
-        let cubeModel = this.world.createEntity()
-            .addComponent(Scene, {id: '0'})
+        // create model
+        this.world.createEntity()
+            .addComponent(Scene, { id: '0' })
             .addComponent(Transform)
-            .addComponent(Model, {mesh: 'Box', material: 'Gray'})
+            .addComponent(Model, { mesh: 'Box', material: 'Gray' })
+
+        // create light
+        this.world.createEntity()
+            .addComponent(Scene, { id: '0' })
+            .addComponent(Transform)
+            .addComponent(Light)
 
         // create systems
         this.world.createSystem(SceneSystem);
         this.world.createSystem(CameraSystem);
         this.world.createSystem(ModelSystem);
+        this.world.createSystem(LightSystem);
+        this.world.createSystem(TransformSystem);
 
         this.start();
 
