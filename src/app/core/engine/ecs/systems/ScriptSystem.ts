@@ -1,14 +1,14 @@
 import { System } from './System';
 import { Entity } from '../entities/Entity';
-import { Light } from '../components/Light';
+import { Script } from '../components/Script';
 
-export class LightSystem extends System {
+export class ScriptSystem extends System {
 
 
     constructor() {
         super();
-        this.queries = [Light];
-        
+        this.queries = [Script];
+
     }
 
 
@@ -18,6 +18,7 @@ export class LightSystem extends System {
 
 
     update(tick: number, entities: Entity[]) {
+        
     }
 
 

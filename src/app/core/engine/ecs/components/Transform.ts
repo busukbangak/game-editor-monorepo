@@ -1,11 +1,13 @@
 
 import { Component } from "./Component";
-import { Entity } from "../entities/Entity";
+import * as THREE from "three";
 
-export class Transform extends Component {
+export class Transform implements Component {
 
-    constructor(entity: Entity) {
-        super(entity);
+    value: THREE.Group;
+
+    constructor(value = new THREE.Group()) {
+        this.value = value;
     }
 
 }

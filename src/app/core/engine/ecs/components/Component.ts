@@ -1,9 +1,6 @@
 import { Entity } from "../entities/Entity";
 
-export abstract class Component {
+export interface Component {
 
-    entity: Entity;
-
-    constructor(entity: Entity) {
-    }
+ 
 }

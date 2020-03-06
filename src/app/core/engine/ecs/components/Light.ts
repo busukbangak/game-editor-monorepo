@@ -1,8 +1,13 @@
-import { Entity } from "../entities/Entity";
-import { Component } from "./Component";
 
-export class Light extends Component {
-    constructor(entity: Entity) {
-        super(entity);
+import { Component } from "./Component";
+import * as THREE from "three";
+
+export class Light implements Component {
+
+    value: THREE.Light;
+
+    constructor(value = new THREE.AmbientLight(0xffffff)) {
+        this.value = value;
     }
+
 }

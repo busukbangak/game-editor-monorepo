@@ -16,17 +16,16 @@ export class Entity {
         this.components = [];
     }
 
-    addComponent<T extends Component>(Component: new (...args: any) => T, values?: object) {
-        let component = new Component(this);
+    addComponent<T extends Component>(Component: new (...args: any) => T, values?: Object) {
+        let component = new Component();
 
-        for (let i in component) {
-            for (let k in values) {
-                if (i === k) {
-                    component[i] = values[k];
-                }
-            }
-        }
-
+          for (let i in component) {
+              for (let k in values) {
+                  if (i === k) {
+                      component[i] = values[k];
+                  }
+              }
+          }
         this.components.push(component);
         return this;
     }
@@ -60,4 +59,5 @@ export class Entity {
         }
         return undefined;
     }
+    
 }

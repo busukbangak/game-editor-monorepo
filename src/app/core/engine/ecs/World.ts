@@ -1,8 +1,5 @@
 import { Entity } from "./entities/Entity";
 import { System } from "./systems/System";
-import { Scene } from "./components/Scene";
-import { Camera } from "./components/Camera";
-import { Transform } from "./components/Transform";
 
 export class World {
 
@@ -21,13 +18,16 @@ export class World {
     initialize() {
         for (let system of this.systems) {
             system.initialize(this.entities.filter((entity) => {
+                for(let query of system.queries) {
+                    if(entity.hasComponent(query)) {
+                        return entity;
+                    }
+                }/* 
                 if (entity.hasComponents(system.queries)) {
                     return entity;
-                }
+                } */
             }));
         }
-
-
     }
 
     createEntity() {
@@ -66,10 +66,6 @@ export class World {
     }
 
     update(tick: number) {
-        if (!this.enabled) {
-            return;
-        }
-
         for (let system of this.systems) {
             if (system.enabled) {
                 system.update(tick, this.entities.filter((entity) => {

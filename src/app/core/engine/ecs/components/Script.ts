@@ -1,9 +1,12 @@
-import { Entity } from "../entities/Entity";
+
 import { Component } from "./Component";
 
+export class Script implements Component {
 
-export class Script extends Component {
-    constructor(entity: Entity) {
-        super(entity);
+    value: any;
+
+    constructor() {
+        
     }
+
 }

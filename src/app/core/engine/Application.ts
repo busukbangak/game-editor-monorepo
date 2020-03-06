@@ -1,14 +1,17 @@
 import { World } from './ecs/World';
+import { Renderer } from './ecs/components/Renderer';
 import { Scene } from './ecs/components/Scene';
 import { Transform } from './ecs/components/Transform';
 import { Camera } from './ecs/components/Camera';
 import { Model } from './ecs/components/Model';
 import { Light } from './ecs/components/Light';
-import { CameraSystem } from './ecs/systems/CameraSystem';
-import { ModelSystem } from './ecs/systems/ModelSystem';
-import { LightSystem } from './ecs/systems/LightSystem';
 import { SceneSystem } from './ecs/systems/SceneSystem'
-import { TransformSystem } from './ecs/systems/Transformsystem';
+import { TransformSystem } from './ecs/systems/TransformSystem';
+import * as THREE from 'three';
+import { RenderSystem } from './ecs/systems/RenderSystem';
+import { Entity } from './ecs/entities/Entity';
+import { Script } from './ecs/components/Script';
+import { ScriptSystem } from './ecs/systems/ScriptSystem';
 
 
 export class Application {
@@ -19,35 +22,51 @@ export class Application {
 
     tick: number;
 
+    testEntity: Entity;
+
     constructor(canvas: HTMLCanvasElement) {
 
         // create game world
         this.world = new World();
 
+        // create renderer
+        let rendererEntity = this.world.createEntity()
+            .addComponent(Renderer, { value: new THREE.WebGLRenderer({ canvas: canvas, alpha: true, antialias: true }) })
+
         // create scene
-        this.world.createEntity()
-            .addComponent(Scene, { id: '0' })
+        let sceneEntity = this.world.createEntity()
+            .addComponent(Scene, { value: new THREE.Scene(), active: true })
+
+        let scene = sceneEntity.getComponent(Scene).value;
+        scene.background = new THREE.Color(0x757575);
+
+        // create camera
+        let cameraEntity = this.world.createEntity()
+            .addComponent(Scene, { value: scene })
             .addComponent(Transform)
-            .addComponent(Camera)
+            .addComponent(Camera, { active: true })
+
+        let camera = cameraEntity.getComponent(Camera).value;
+        camera.position.z = 10;
 
         // create model
-        this.world.createEntity()
-            .addComponent(Scene, { id: '0' })
+        this.testEntity = this.world.createEntity()
+            .addComponent(Scene, { value: scene })
             .addComponent(Transform)
-            .addComponent(Model, { mesh: 'Box', material: 'Gray' })
+            .addComponent(Model)
+            .addComponent(Script)
 
         // create light
         this.world.createEntity()
-            .addComponent(Scene, { id: '0' })
+            .addComponent(Scene, { value: scene })
             .addComponent(Transform)
             .addComponent(Light)
 
         // create systems
-        this.world.createSystem(SceneSystem);
-        this.world.createSystem(CameraSystem);
-        this.world.createSystem(ModelSystem);
-        this.world.createSystem(LightSystem);
         this.world.createSystem(TransformSystem);
+        this.world.createSystem(SceneSystem);
+        this.world.createSystem(ScriptSystem);
+        this.world.createSystem(RenderSystem);
 
         this.start();
 
@@ -57,20 +76,26 @@ export class Application {
 
     public start(): void {
 
+        // initialize world before starting
         this.world.initialize();
 
+        // Start application when document is loaded
         if (document.readyState !== 'loading') {
             this.update();
         } else {
-            window.addEventListener('DOMContentLoaded', () => {
-                this.update();
-            });
+            window.addEventListener('DOMContentLoaded', () => this.update());
         }
     }
 
 
     public update(): void {
-        this.world.update(this.tick);
+        if (this.world.enabled) {
+            this.world.update(this.tick);
+        }
+
+        this.testEntity.getComponent(Transform).value.rotation.x += 0.005;
+        this.testEntity.getComponent(Transform).value.rotation.y += 0.005;
+
         this.tick = requestAnimationFrame(() => {
             this.update();
         });

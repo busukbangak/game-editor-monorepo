@@ -1,20 +1,16 @@
+
 import { Component } from "./Component";
-import { Entity } from "../entities/Entity";
+import * as THREE from "three";
 
-export enum CameraType {
-    Perspective = 'Perspective',
-    Orthographic = 'Orthographic'
-}
+export class Camera implements Component {
 
+    value: THREE.Camera;
 
-export class Camera extends Component {
+    active: boolean;
 
-    cameraType: CameraType;
-
-    constructor(entity: Entity, cameraType: CameraType = CameraType.Perspective) {
-        super(entity);
-        this.cameraType = cameraType;
-
+    constructor(value = new THREE.PerspectiveCamera, active = false) {
+        this.value = value;
+        this.active = active;
     }
 
 }

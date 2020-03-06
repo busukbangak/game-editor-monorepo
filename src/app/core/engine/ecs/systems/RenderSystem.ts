@@ -1,75 +1,69 @@
 import { System } from "./System";
-
-import * as THREE from "three";
-
 import { Entity } from "../entities/Entity";
+import { Renderer } from "../components/Renderer";
+import { Scene } from "../components/Scene";
+import { Camera } from "../components/Camera";
 
 export class RenderSystem extends System {
 
-    renderer: THREE.WebGLRenderer;
+    activeScene: THREE.Scene;
 
-    scenes: {[key: string]: THREE.Scene};
+    activeCamera: THREE.Camera;
 
-    constructor(canvas: HTMLCanvasElement) {
-        super(); 
+    activeRenderer: THREE.WebGLRenderer;
 
-        this.scenes = {};
-
-        this.renderer = new THREE.WebGLRenderer({
-            canvas: canvas,
-            alpha: true,    // transparent background
-            antialias: true // smooth edges
-        });
-
-        this.renderer.setSize(window.innerWidth, window.innerHeight);
-
-        /* window.addEventListener('resize', () => {
-            const width = window.innerWidth;
-            const height = window.innerHeight;
-
-            let camera: any = this.cameras[this.currentCamera];
-            camera.aspect = width / height;
-            camera.updateProjectionMatrix();
-
-            this.renderer.setSize(width, height);
-        });h
- */
+    constructor() {
+        super();
+        // TODO: Get only Renderer entity, active camera entity, and active scene entity
+        this.queries = [Renderer, Scene, Camera];
     }
 
     initialize(entities: Entity[]) {
-      /*   for(let entity of entities) {
-            if(entity.hasComponent(Scene)) {
-                if(!this.scenes[entity.getComponent(Scene).id]) {
-                    this.scenes[entity.getComponent(Scene).id] = new THREE.Scene();
-                }
-            }
-        } */
-      /*   this.setResponsiveCanvasRenderer();
-        console.log(entities) */
+        this.updateActiveObjects(entities);
+        this.resizeCanvas();
     }
 
     update(tick: number, entities: Entity[]) {
+        // TODO: Check if update is even needed
+        this.updateActiveObjects(entities);
+        this.activeRenderer.render(this.activeScene, this.activeCamera);
+        
+    }
+
+    updateActiveObjects(entities: Entity[]) {
         for (let entity of entities) {
-            /*  console.log(entity.getComponent(Model)) */
+            // set active renderer
+            if (entity.hasComponent(Renderer)) {
+                this.activeRenderer = entity.getComponent(Renderer).value;
+            }
+            // set active camera
+            if (entity.hasComponent(Camera)) {
+                if (entity.getComponent(Camera).active) {
+                    this.activeCamera = entity.getComponent(Camera).value;
+                }
+            }
+            // set active scene
+            if (entity.hasComponent(Scene)) {
+                if (entity.getComponent(Scene).active) {
+                    this.activeScene = entity.getComponent(Scene).value;
+                }
+            }
         }
-
+        // TODO: Remove eventlistner again
+        window.addEventListener('resize', () => {
+            this.resizeCanvas()
+        });
     }
 
-/*     setResponsiveCanvasRenderer(camera: any) {
-        window.removeEventListener('resize', this.resizeCanvas(camera));
-        window.addEventListener('resize', this.resizeCanvas(camera));
-    }
-
-    resizeCanvas(camera: any) {
+    resizeCanvas() {
         const width = window.innerWidth;
-        const height = window.innerHeight;
+            const height = window.innerHeight;
 
-        camera.aspect = width / height;
-        camera.updateProjectionMatrix();
+            let camera: any = this.activeCamera;
+            camera.aspect = width / height;
+            camera.updateProjectionMatrix();
 
-        this.renderer.setSize(width, height);
-    } */
-
-
+            this.activeRenderer.setSize(width, height);
+    }
 
 }

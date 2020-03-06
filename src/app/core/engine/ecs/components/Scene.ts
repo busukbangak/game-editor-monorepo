@@ -1,14 +1,16 @@
+
 import { Component } from "./Component";
-import { Entity } from "../entities/Entity";
+import * as THREE from "three";
 
-export class Scene extends Component {
+export class Scene implements Component {
 
-    id: string;
+    value: THREE.Scene;
 
-    constructor(entity?: Entity, id?: string) {
-        super(entity);
+    active: boolean;
 
-        this.id = id;
-
+    constructor(value?: THREE.Scene, active = false) {
+        this.value = value;
+        this.active = active;
     }
+
 }

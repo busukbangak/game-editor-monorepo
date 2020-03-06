@@ -1,11 +1,13 @@
-import { Entity } from "../entities/Entity";
+
 import { Component } from "./Component";
+import * as THREE from "three";
 
-export class Model extends Component {
+export class Model implements Component {
 
+    value: THREE.Mesh;
 
-    constructor(entity: Entity) {
-        super(entity);
+    constructor(value = new THREE.Mesh(new THREE.BoxGeometry(1, 1, 1), new THREE.MeshStandardMaterial({ color: 0x0087E6, wireframe: false }))) {
+        this.value = value;
     }
 
 }
