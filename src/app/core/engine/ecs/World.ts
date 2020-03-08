@@ -7,6 +7,8 @@ export class World {
 
     systems: System[];
 
+    tick: number;
+
     enabled: boolean;
 
     constructor() {
@@ -16,18 +18,24 @@ export class World {
     }
 
     initialize() {
+        // initialize systems
         for (let system of this.systems) {
             system.initialize(this.entities.filter((entity) => {
-                for(let query of system.queries) {
-                    if(entity.hasComponent(query)) {
+                for (let query of system.queries) {
+                    if (entity.hasComponent(query)) {
                         return entity;
                     }
-                }/* 
-                if (entity.hasComponents(system.queries)) {
-                    return entity;
-                } */
+                }
             }));
         }
+
+        // Start application loop when document is loaded
+        if (document.readyState !== 'loading') {
+            this.update(this.tick);
+        } else {
+            window.addEventListener('DOMContentLoaded', () => this.update(this.tick));
+        }
+
     }
 
     createEntity() {
@@ -58,6 +66,8 @@ export class World {
     }
 
     start() {
+        // TODO: Check if this is good or bad
+        this.initialize();
         this.enabled = true;
     }
 
@@ -66,14 +76,20 @@ export class World {
     }
 
     update(tick: number) {
-        for (let system of this.systems) {
-            if (system.enabled) {
-                system.update(tick, this.entities.filter((entity) => {
-                    if (entity.hasComponents(system.queries)) {
-                        return entity;
-                    }
-                }))
+        if (this.enabled) {
+            for (let system of this.systems) {
+                if (system.enabled) {
+                    system.update(tick, this.entities.filter((entity) => {
+                        if (entity.hasComponents(system.queries)) {
+                            return entity;
+                        }
+                    }));
+                }
             }
         }
+
+        this.tick = requestAnimationFrame(() => {
+            this.update(this.tick);
+        });
     }
 }

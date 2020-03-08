@@ -12,17 +12,14 @@ import { RenderSystem } from './ecs/systems/RenderSystem';
 import { Entity } from './ecs/entities/Entity';
 import { Script } from './ecs/components/Script';
 import { ScriptSystem } from './ecs/systems/ScriptSystem';
+import { readFile, readFileSync } from 'fs';
 
 
 export class Application {
 
     world: World;
 
-    assets: any;
-
-    tick: number;
-
-    testEntity: Entity;
+    assets: string;
 
     constructor(canvas: HTMLCanvasElement) {
 
@@ -38,7 +35,7 @@ export class Application {
             .addComponent(Scene, { value: new THREE.Scene(), active: true })
 
         let scene = sceneEntity.getComponent(Scene).value;
-        scene.background = new THREE.Color(0x757575);
+        scene.background = new THREE.Color(0x959595);
 
         // create camera
         let cameraEntity = this.world.createEntity()
@@ -50,11 +47,11 @@ export class Application {
         camera.position.z = 10;
 
         // create model
-        this.testEntity = this.world.createEntity()
+        this.world.createEntity()
             .addComponent(Scene, { value: scene })
             .addComponent(Transform)
             .addComponent(Model)
-            .addComponent(Script)
+            .addComponent(Script, {value: readFileSync('/Users/user/Desktop/desktop-game-editor/TestScript.js', 'utf8')})
 
         // create light
         this.world.createEntity()
@@ -68,37 +65,10 @@ export class Application {
         this.world.createSystem(ScriptSystem);
         this.world.createSystem(RenderSystem);
 
-        this.start();
+        this.world.start();
 
         console.log(this)
 
-    }
-
-    public start(): void {
-
-        // initialize world before starting
-        this.world.initialize();
-
-        // Start application when document is loaded
-        if (document.readyState !== 'loading') {
-            this.update();
-        } else {
-            window.addEventListener('DOMContentLoaded', () => this.update());
-        }
-    }
-
-
-    public update(): void {
-        if (this.world.enabled) {
-            this.world.update(this.tick);
-        }
-
-        this.testEntity.getComponent(Transform).value.rotation.x += 0.005;
-        this.testEntity.getComponent(Transform).value.rotation.y += 0.005;
-
-        this.tick = requestAnimationFrame(() => {
-            this.update();
-        });
     }
 
 
