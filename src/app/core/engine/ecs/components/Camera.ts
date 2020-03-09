@@ -8,7 +8,7 @@ export class Camera implements Component {
 
     active: boolean;
 
-    constructor(value = new THREE.PerspectiveCamera, active = false) {
+    constructor(value = new THREE.PerspectiveCamera(), active = false) {
         this.value = value;
         this.active = active;
     }

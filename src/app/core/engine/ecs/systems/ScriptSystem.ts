@@ -1,46 +1,52 @@
 import { System } from './System';
 import { Entity } from '../entities/Entity';
 import { Script } from '../components/Script';
-import * as tsParser from 'typescript-parser';
 import { readFileSync } from 'fs';
-import { Transform } from '../components/Transform'
+import * as THREE from 'three';
 
 export class ScriptSystem extends System {
 
+    scripts;
 
     constructor() {
         super();
         this.queries = [Script];
+        this.scripts = [];
     }
 
 
     async initialize(entities: Entity[]) {
 
-        for (let entity of entities) {
+        let eventDispatcher = new THREE.EventDispatcher();
 
+        let script1 = new Function('entity, THREE', readFileSync('/Users/user/Desktop/desktop-game-editor/TestScript.js', 'utf8')
+            + 'return new Script(entity, THREE)')(eventDispatcher, THREE);
+        this.scripts.push(script1);
+
+        let script2 = new Function('entity, THREE', readFileSync('/Users/user/Desktop/desktop-game-editor/TestScript2.js', 'utf8')
+            + 'return new Script(entity, THREE)')(eventDispatcher, THREE);
+        this.scripts.push(script2);
+
+        try {
+            for (let script of this.scripts) {
+                    script.update(0);   
+            }
+        } catch (e) {
+
+            console.log(e)
         }
+
     }
 
 
     update(tick: number, entities: Entity[]) {
         for (let entity of entities) {
-            try {
-                entity.getComponent(Script).value = readFileSync('/Users/user/Desktop/desktop-game-editor/TestScript.js', 'utf8');
-                const script = eval(`
-                (function (element) { 
-                    ${entity.getComponent(Script).value}
-                    
-                    let soundPlayer = new SoundPlayer('meow');
-                    
-                    return soundPlayer;
-                })`);
 
-                console.log(script().playSound())
-
-            } catch (e) {
-                console.log(e)
-            }
         }
+
+        this.scripts = []
+
+
 
     }
 

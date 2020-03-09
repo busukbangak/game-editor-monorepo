@@ -32,8 +32,8 @@ export class Application {
 
         // create scene
         let sceneEntity = this.world.createEntity()
-            .addComponent(Scene, { value: new THREE.Scene(), active: true })
-
+            .addComponent(Scene, { active: true })
+            
         let scene = sceneEntity.getComponent(Scene).value;
         scene.background = new THREE.Color(0x959595);
 
@@ -51,7 +51,7 @@ export class Application {
             .addComponent(Scene, { value: scene })
             .addComponent(Transform)
             .addComponent(Model)
-            .addComponent(Script, {value: readFileSync('/Users/user/Desktop/desktop-game-editor/TestScript.js', 'utf8')})
+            .addComponent(Script)
 
         // create light
         this.world.createEntity()

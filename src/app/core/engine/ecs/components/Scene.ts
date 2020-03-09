@@ -8,7 +8,7 @@ export class Scene implements Component {
 
     active: boolean;
 
-    constructor(value?: THREE.Scene, active = false) {
+    constructor(value: THREE.Scene = new THREE.Scene, active = false) {
         this.value = value;
         this.active = active;
     }
