@@ -4,6 +4,7 @@ import { Transform } from '../components/Transform';
 import { Camera } from '../components/Camera';
 import { Model } from '../components/Model';
 import { Light } from '../components/Light';
+import * as THREE from 'three';
 
 export class TransformSystem extends System {
 
@@ -17,17 +18,25 @@ export class TransformSystem extends System {
 
     initialize(entities: Entity[]) {
         for (let entity of entities) {
-            let transformObject = entity.getComponent(Transform).value;
 
+            let transformComponent = entity.getComponent(Transform);
+            let transform = transformComponent.value;
+
+            // add transform to parent
+            if(transformComponent.parent) {
+                transformComponent.parent.add(transform)
+            }
+
+            // add components to transform element
             for (let component of entity.components) {
                 if (component instanceof Camera) {
-                    transformObject.add(component.value)
+                    transform.add(component.value)
                 }
                 if (component instanceof Model) {
-                    transformObject.add(component.value)
+                    transform.add(component.value)
                 }
                 if (component instanceof Light) {
-                    transformObject.add(component.value)
+                    transform.add(component.value)
                 }
             }
         }

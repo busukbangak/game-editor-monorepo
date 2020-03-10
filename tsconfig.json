@@ -21,7 +21,7 @@
   },
   "include": [
     "main.ts",
-    "src/**/*"
+    "src/**/*", "src/app/core/engine/.engine/Application.ts"
   ],
   "exclude": [
     "node_modules"

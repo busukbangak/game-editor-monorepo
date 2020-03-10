@@ -1,13 +1,9 @@
 class Script {
 
-    constructor(entity, THREE) {
+    constructor(entity, app) {
         this.entity = entity;
-        this.THREE = THREE;
-        this.entity.addEventListener('start', function(event) {
-
-            console.log(event.message)
-
-        });
+        this.app = app;
+        
     }
 
     update(tick) {

@@ -4,10 +4,13 @@ import * as THREE from "three";
 
 export class Transform implements Component {
 
+    parent: THREE.Object3D
+
     value: THREE.Group;
 
-    constructor(value = new THREE.Group()) {
-        this.value = value;
+    constructor(parent?: THREE.Object3D) {
+        this.parent = parent;
+        this.value = new THREE.Group();
     }
 
 }

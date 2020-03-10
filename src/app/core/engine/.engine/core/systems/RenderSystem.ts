@@ -3,6 +3,7 @@ import { Entity } from "../entities/Entity";
 import { Renderer } from "../components/Renderer";
 import { Scene } from "../components/Scene";
 import { Camera } from "../components/Camera";
+import * as THREE from "three";
 
 export class RenderSystem extends System {
 
@@ -27,14 +28,22 @@ export class RenderSystem extends System {
         // TODO: Check if update is even needed
         this.updateActiveObjects(entities);
         this.activeRenderer.render(this.activeScene, this.activeCamera);
-        
+
     }
 
     updateActiveObjects(entities: Entity[]) {
         for (let entity of entities) {
             // set active renderer
             if (entity.hasComponent(Renderer)) {
-                this.activeRenderer = entity.getComponent(Renderer).value;
+                // update passed renderer values
+                let renderEntity = entity.getComponent(Renderer);
+                let renderOptions = renderEntity.options;
+                if (!renderEntity.value) {
+                    renderEntity.value = new THREE.WebGLRenderer(renderOptions)
+                }
+                if (renderEntity.active) {
+                    this.activeRenderer = renderEntity.value;
+                }
             }
             // set active camera
             if (entity.hasComponent(Camera)) {
@@ -57,13 +66,13 @@ export class RenderSystem extends System {
 
     resizeCanvas() {
         const width = window.innerWidth;
-            const height = window.innerHeight;
+        const height = window.innerHeight;
 
-            let camera: any = this.activeCamera;
-            camera.aspect = width / height;
-            camera.updateProjectionMatrix();
+        let camera: any = this.activeCamera;
+        camera.aspect = width / height;
+        camera.updateProjectionMatrix();
 
-            this.activeRenderer.setSize(width, height);
+        this.activeRenderer.setSize(width, height);
     }
 
 }
