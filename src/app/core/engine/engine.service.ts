@@ -11,7 +11,7 @@ import { SceneSystem } from './.engine/core/systems/SceneSystem';
 import { ScriptSystem } from './.engine/core/systems/ScriptSystem';
 import { RenderSystem } from './.engine/core/systems/RenderSystem';
 import { Scene } from './.engine/core/components/Scene';
-import { Camera } from './.engine/core/components/Camera';
+import { Camera, CameraType } from './.engine/core/components/Camera';
 import { Light } from './.engine/core/components/Light';
 
 @Injectable({ providedIn: 'root' })
@@ -38,7 +38,7 @@ export class EngineService {
     // create camera
     this.app.world.createEntity()
       .addComponent(Transform, {parent: scene})
-      .addComponent(Camera, { active: true })
+      .addComponent(Camera, { active: true, type: CameraType.Perspective })
 
     // create model
     this.app.world.createEntity()
