@@ -17,14 +17,12 @@ export class ScriptSystem extends System {
 
     async initialize(entities: Entity[]) {
 
-        let eventDispatcher = new THREE.EventDispatcher();
-
-        let script1 = new Function('entity, THREE', readFileSync('/Users/user/Desktop/desktop-game-editor/TestScript.js', 'utf8')
-            + 'return new Script(entity, THREE)')(eventDispatcher, THREE);
+        let script1 = new Function('entity, THREE', readFileSync('./TestScript.js', 'utf8')
+            + 'return new Script(entity, THREE)')(entities[0], THREE);
         this.scripts.push(script1);
 
-        let script2 = new Function('entity, THREE', readFileSync('/Users/user/Desktop/desktop-game-editor/TestScript2.js', 'utf8')
-            + 'return new Script(entity, THREE)')(eventDispatcher, THREE);
+        let script2 = new Function('entity, THREE', readFileSync('./TestScript2.js', 'utf8')
+            + 'return new Script(entity, THREE)')(entities[0], THREE);
         this.scripts.push(script2);
 
         try {

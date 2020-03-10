@@ -1,5 +1,9 @@
 import { Entity } from "./entities/Entity";
 import { System } from "./systems/System";
+import { TransformSystem } from "./systems/TransformSystem";
+import { SceneSystem } from "./systems/SceneSystem";
+import { ScriptSystem } from "./systems/ScriptSystem";
+import { RenderSystem } from "./systems/RenderSystem";
 
 export class World {
 

@@ -1,18 +1,18 @@
 import * as shortid from 'shortid';
 import { Component } from '../components/Component';
+import * as THREE from 'three';
 
 export enum ComponentType {
     Camera = 'Camera'
 }
 
-export class Entity {
-
-    id: string;
+export class Entity extends THREE.Object3D{
 
     components: Component[];
 
     constructor() {
-        this.id = shortid.generate();
+        super();
+        this.type = 'Entity';
         this.components = [];
     }
 
