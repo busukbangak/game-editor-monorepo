@@ -10,13 +10,16 @@ export class World {
 
     tick: number;
 
+    initialized: boolean;
+
     enabled: boolean;
 
     constructor() {
         this.entities = [];
         this.systems = [];
         this.assemblages = [];
-        this.enabled = true;
+        this.initialized = false;
+        this.enabled = false;
     }
 
     initialize() {
@@ -68,8 +71,13 @@ export class World {
     }
 
     start() {
-        // TODO: Check if this is good or bad
-        this.initialize();
+        if (!this.initialized) {
+            this.initialize();
+            this.initialized = true;
+        }
+        if (this.enabled) {
+            console.warn('Application is already running');
+        }
         this.enabled = true;
     }
 

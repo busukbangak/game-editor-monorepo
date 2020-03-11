@@ -7,15 +7,16 @@ import * as THREE from "three";
 
 export class RenderSystem extends System {
 
-    activeScene: THREE.Scene;
 
-    activeCamera: THREE.Camera;
+    activeRenderer: Renderer;
 
-    activeRenderer: THREE.WebGLRenderer;
+    activeScene: Scene;
+
+    activeCamera: Camera;
+
 
     constructor() {
         super();
-        // TODO: Get only Renderer entity, active camera entity, and active scene entity
         this.queries = [Renderer, Scene, Camera];
     }
 
@@ -27,7 +28,7 @@ export class RenderSystem extends System {
     update(tick: number, entities: Entity[]) {
         // TODO: Check if update is even needed
         this.updateActiveObjects(entities);
-        this.activeRenderer.render(this.activeScene, this.activeCamera);
+        this.activeRenderer.value.render(this.activeScene.value, this.activeCamera.value);
 
     }
 
@@ -42,19 +43,19 @@ export class RenderSystem extends System {
                     renderEntity.value = new THREE.WebGLRenderer(renderOptions)
                 }
                 if (renderEntity.active) {
-                    this.activeRenderer = renderEntity.value;
-                }
-            }
-            // set active camera
-            if (entity.hasComponent(Camera)) {
-                if (entity.getComponent(Camera).active) {
-                    this.activeCamera = entity.getComponent(Camera).value;
+                    this.activeRenderer = renderEntity;
                 }
             }
             // set active scene
             if (entity.hasComponent(Scene)) {
                 if (entity.getComponent(Scene).active) {
-                    this.activeScene = entity.getComponent(Scene).value;
+                    this.activeScene = entity.getComponent(Scene);
+                }
+            }
+            // set active camera
+            if (entity.hasComponent(Camera)) {
+                if (entity.getComponent(Camera).active) {
+                    this.activeCamera = entity.getComponent(Camera);
                 }
             }
         }
@@ -68,11 +69,11 @@ export class RenderSystem extends System {
         const width = window.innerWidth;
         const height = window.innerHeight;
 
-        let camera: any = this.activeCamera;
+        let camera: any = this.activeCamera.value;
         camera.aspect = width / height;
         camera.updateProjectionMatrix();
 
-        this.activeRenderer.setSize(width, height);
+        this.activeRenderer.value.setSize(width, height);
     }
 
 }

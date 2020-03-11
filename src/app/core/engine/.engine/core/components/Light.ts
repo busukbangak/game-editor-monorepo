@@ -2,12 +2,19 @@
 import { Component } from "./Component";
 import * as THREE from "three";
 
+export enum LightType {
+    Ambient
+}
+
 export class Light implements Component {
+
+    type: LightType;
 
     value: THREE.Light;
 
-    constructor(value = new THREE.AmbientLight(0xffffff)) {
-        this.value = value;
+    constructor(type: LightType = LightType.Ambient) {
+        this.type = type;
+        this.value = undefined;
     }
 
 }

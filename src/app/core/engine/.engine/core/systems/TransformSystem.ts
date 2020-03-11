@@ -20,14 +20,19 @@ export class TransformSystem extends System {
         for (let entity of entities) {
 
             let transformComponent = entity.getComponent(Transform);
+
+            if(!transformComponent.value) {
+                transformComponent.value = new THREE.Group();
+            }
+
             let transform = transformComponent.value;
 
             // add transform to parent
             if(transformComponent.parent) {
-                transformComponent.parent.add(transform)
+                transformComponent.parent.value.add(transform)
             }
 
-            // add components to transform element
+            // add all the other components with position to grouped transform element
             for (let component of entity.components) {
                 if (component instanceof Camera) {
                     transform.add(component.value)

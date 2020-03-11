@@ -6,8 +6,8 @@ export class Script implements Component {
 
     value: any;
 
-    constructor(value?: any) {
-        this.value = value;
+    constructor() {
+        this.value = undefined;
     }
 
 }

@@ -1,6 +1,7 @@
 import { System } from './System';
 import { Entity } from '../entities/Entity';
-import { Light } from '../components/Light';
+import { Light, LightType } from '../components/Light';
+import * as THREE from 'three';
 
 export class LightSystem extends System {
 
@@ -13,7 +14,13 @@ export class LightSystem extends System {
 
 
     initialize(entities: Entity[]) {
-        console.log(entities)
+        for (let entity of entities) {
+            let lightComponent = entity.getComponent(Light);
+            switch(lightComponent.type) {
+                case LightType.Ambient: lightComponent.value = new THREE.AmbientLight(0xffffff); break;
+            }
+            
+        }
     }
 
 

@@ -19,15 +19,9 @@ export class Camera implements Component {
     value: THREE.Camera;
 
     constructor(active = false, type: CameraType = CameraType.Perspective) {
-
-        switch(type) {
-            /* case CameraType.Array: this.value = new THREE.ArrayCamera();
-            case CameraType.Cube: this.value = new THREE.CubeCamera();
-            case CameraType.Orthographic: this.value = new THREE.OrthographicCamera(); */
-            case CameraType.Perspective: this.value = new THREE.PerspectiveCamera();/* 
-            case CameraType.Stereo: this.value = new THREE.StereoCamera(); */
-        }
         this.active = active;
+        this.type = type;
+        this.value = undefined;
     }
 
 }
