@@ -78,10 +78,6 @@
   },
   "dependencies": {
     "shortid": "^2.2.15",
-    "systemjs": "^6.2.5",
-    "three": "^0.113.2",
-    "tslib": "1.10.0",
-    "typescript-parser": "^2.6.1",
-    "uuid": "^7.0.1"
+    "three": "^0.114.0"
   }
 }

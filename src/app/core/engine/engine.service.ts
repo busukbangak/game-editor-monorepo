@@ -1,21 +1,14 @@
 
 import { Injectable } from '@angular/core';
 import { Application } from './.engine/Application';
-import { Renderer } from './.engine/core/components/Renderer';
+import { Renderer } from './.engine/components/Renderer';
 import * as THREE from 'three';
-import { Transform } from './.engine/core/components/Transform';
-import { Model, ModelType } from './.engine/core/components/Model';
-import { Script } from './.engine/core/components/Script';
-import { SceneSystem } from './.engine/core/systems/SceneSystem';
-import { CameraSystem } from './.engine/core/systems/CameraSystem';
-import { ModelSystem } from './.engine/core/systems/ModelSystem';
-import { LightSystem } from './.engine/core/systems/LightSystem';
-import { TransformSystem } from './.engine/core/systems/TransformSystem';
-import { ScriptSystem } from './.engine/core/systems/ScriptSystem';
-import { RenderSystem } from './.engine/core/systems/RenderSystem';
-import { Scene } from './.engine/core/components/Scene';
-import { Camera, CameraType } from './.engine/core/components/Camera';
-import { Light } from './.engine/core/components/Light';
+import { Transform } from './.engine/components/Transform';
+import { Model, ModelType } from './.engine/components/Model';
+import { Script } from './.engine/components/Script';
+import { Scene } from './.engine/components/Scene';
+import { Camera, CameraType } from './.engine/components/Camera';
+import { Light } from './.engine/components/Light';
 
 @Injectable({ providedIn: 'root' })
 export class EngineService {
@@ -31,9 +24,9 @@ export class EngineService {
 
     // create renderer
     this.app.world.createEntity()
-      .addComponent(Renderer, { active: true, options: { canvas: canvas, antialias: true, alpha: true } });
+      .addComponent(Renderer, { active: true, canvas: canvas, antialias: true, alpha: true });
 
-    // create scene and get the component
+     // create scene and get the component
     let scene = this.app.world.createEntity()
       .addComponent(Scene, { active: true, background: new THREE.Color(0x959595) })
       .getComponent(Scene)
@@ -53,15 +46,6 @@ export class EngineService {
     this.app.world.createEntity()
       .addComponent(Transform, { parent: scene })
       .addComponent(Light)
-
-    // create systems
-    this.app.world.createSystem(ScriptSystem, { app: this.app });
-    this.app.world.createSystem(SceneSystem);
-    this.app.world.createSystem(CameraSystem);
-    this.app.world.createSystem(ModelSystem);
-    this.app.world.createSystem(LightSystem);
-    this.app.world.createSystem(TransformSystem);
-    this.app.world.createSystem(RenderSystem);
 
     this.app.start();
 

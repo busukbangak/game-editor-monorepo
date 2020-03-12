@@ -36,14 +36,8 @@ export class RenderSystem extends System {
         for (let entity of entities) {
             // set active renderer
             if (entity.hasComponent(Renderer)) {
-                // update passed renderer values
-                let renderEntity = entity.getComponent(Renderer);
-                let renderOptions = renderEntity.options;
-                if (!renderEntity.value) {
-                    renderEntity.value = new THREE.WebGLRenderer(renderOptions)
-                }
-                if (renderEntity.active) {
-                    this.activeRenderer = renderEntity;
+                if (entity.getComponent(Renderer).active) {
+                    this.activeRenderer = entity.getComponent(Renderer);
                 }
             }
             // set active scene

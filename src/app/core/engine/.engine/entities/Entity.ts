@@ -17,15 +17,7 @@ export class Entity {
     }
 
     addComponent<T extends Component>(Component: new (...args: any) => T, values?: Object) {
-        let component = new Component();
-
-          for (let i in component) {
-              for (let k in values) {
-                  if (i === k) {
-                      component[i] = values[k];
-                  }
-              }
-          }
+        let component = new Component(values);
         this.components.push(component);
         return this;
     }

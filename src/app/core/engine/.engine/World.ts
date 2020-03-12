@@ -1,5 +1,10 @@
 import { Entity } from "./entities/Entity";
 import { System } from "./systems/System";
+import { ScriptSystem } from './systems/ScriptSystem';
+import { TransformSystem } from './systems/TransformSystem';
+import { RenderSystem } from './systems/RenderSystem';
+import { Manager } from "./managers/Manager";
+
 export class World {
 
     entities: Entity[];
@@ -8,21 +13,32 @@ export class World {
 
     assemblages: Entity[];
 
+    managers: Manager[];
+
     tick: number;
 
     initialized: boolean;
 
     enabled: boolean;
+    
 
     constructor() {
         this.entities = [];
         this.systems = [];
         this.assemblages = [];
+        this.managers = [];
+        this.tick = 0;
         this.initialized = false;
         this.enabled = false;
     }
 
     initialize() {
+        
+        // create default systems
+        this.createSystem(ScriptSystem);
+        this.createSystem(TransformSystem);
+        this.createSystem(RenderSystem);
+
         // initialize systems
         for (let system of this.systems) {
             system.initialize(this.entities.filter((entity) => {

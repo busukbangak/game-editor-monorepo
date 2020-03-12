@@ -3,17 +3,13 @@ import { Entity } from '../entities/Entity';
 import { Script } from '../components/Script';
 import { readFileSync } from 'fs';
 import * as THREE from 'three';
-import { Application } from '../../Application';
 
 export class ScriptSystem extends System {
 
     scripts;
 
-    app: Application;
-
-    constructor(app: Application) {
+    constructor() {
         super();
-        this.app = app;
         this.queries = [Script];
         this.scripts = [];
     }
@@ -21,13 +17,13 @@ export class ScriptSystem extends System {
 
     async initialize(entities: Entity[]) {
 
-        let script1 = new Function('entity, THREE', readFileSync('./TestScript.js', 'utf8')
-            + 'return new Script(entity, THREE)')(entities[0], this.app);
+     /*    let script1 = new Function('entity', readFileSync('./TestScript.js', 'utf8')
+            + 'return new Script(entity, THREE)')(entities[0]);
         this.scripts.push(script1);
 
-        let script2 = new Function('entity, THREE', readFileSync('./TestScript2.js', 'utf8')
-            + 'return new Script(entity, THREE)')(entities[0], this.app);
-        this.scripts.push(script2);
+        let script2 = new Function('entity', readFileSync('./TestScript2.js', 'utf8')
+            + 'return new Script(entity, THREE)')(entities[0]);
+        this.scripts.push(script2); */
 
         try {
             for (let script of this.scripts) {
