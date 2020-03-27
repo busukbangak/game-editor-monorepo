@@ -3,7 +3,7 @@ import { Entity } from "../entities/Entity";
 import { Renderer } from "../components/Renderer";
 import { Scene } from "../components/Scene";
 import { Camera } from "../components/Camera";
-import * as THREE from "three";
+import { World } from "../World";
 
 export class RenderSystem extends System {
 
@@ -15,8 +15,8 @@ export class RenderSystem extends System {
     activeCamera: Camera;
 
 
-    constructor() {
-        super();
+    constructor(world: World) {
+        super(world);
         this.queries = [Renderer, Scene, Camera];
     }
 

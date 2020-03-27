@@ -1,4 +1,5 @@
 import { World } from './World';
+import { AssetManager } from './managers/AssetManager';
 
 export class Application {
 

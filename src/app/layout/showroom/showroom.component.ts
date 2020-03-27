@@ -19,8 +19,8 @@ export class ShowroomComponent implements OnInit, AfterViewInit {
    
   }
 
-  ngAfterViewInit(): void {
-    this.engineService.createApplication(this.canvas.nativeElement);
+  async ngAfterViewInit() {
+    await this.engineService.createApplication(this.canvas.nativeElement);
   }
 
 

@@ -4,6 +4,7 @@ import { ScriptSystem } from './systems/ScriptSystem';
 import { TransformSystem } from './systems/TransformSystem';
 import { RenderSystem } from './systems/RenderSystem';
 import { Manager } from "./managers/Manager";
+import { AssetManager } from "./managers/AssetManager";
 
 export class World {
 
@@ -30,9 +31,12 @@ export class World {
         this.tick = 0;
         this.initialized = false;
         this.enabled = false;
+
+        this.managers.push(new AssetManager())
+
     }
 
-    initialize() {
+    async initialize() {
         
         // create default systems
         this.createSystem(ScriptSystem);
@@ -41,7 +45,7 @@ export class World {
 
         // initialize systems
         for (let system of this.systems) {
-            system.initialize(this.entities.filter((entity) => {
+            await system.initialize(this.entities.filter((entity) => {
                 for (let query of system.queries) {
                     if (entity.hasComponent(query)) {
                         return entity;
@@ -70,7 +74,7 @@ export class World {
 
 
     createSystem<T extends System>(System: new (...args: any) => T, values?: object) {
-        let system = new System();
+        let system = new System(this);
 
         for (let i in system) {
             for (let k in values) {
@@ -84,6 +88,15 @@ export class World {
     }
 
     removeSystem(system: System) {
+    }
+
+    getManager<T extends Manager>(Manager: new (...args: any) => T) {
+        for (let manager of this.managers) {
+            if (manager instanceof Manager) {
+                return manager;
+            }
+        }
+        return undefined;
     }
 
     start() {

@@ -9,6 +9,7 @@ import { Script } from './.engine/components/Script';
 import { Scene } from './.engine/components/Scene';
 import { Camera, CameraType } from './.engine/components/Camera';
 import { Light } from './.engine/components/Light';
+import { AssetManager } from './.engine/managers/AssetManager';
 
 @Injectable({ providedIn: 'root' })
 export class EngineService {
@@ -17,10 +18,12 @@ export class EngineService {
 
   public constructor() { }
 
-  public createApplication(canvas: HTMLCanvasElement): void {
+  public async createApplication(canvas: HTMLCanvasElement) {
 
     // create new application
     this.app = new Application();
+    await this.app.world.getManager(AssetManager).loadAsset('file:///Users/user/Desktop/desktop-game-editor/TestScript2.js');
+    await this.app.world.getManager(AssetManager).loadAsset('file:///Users/user/Desktop/desktop-game-editor/TestScript.js', 'rotate');
 
     // create renderer
     this.app.world.createEntity()
@@ -35,12 +38,15 @@ export class EngineService {
     this.app.world.createEntity()
       .addComponent(Transform, { parent: scene })
       .addComponent(Camera, { active: true, type: CameraType.Perspective })
+      .getComponent(Transform)
+      .value.position.z = 5;
+    
 
     // create model
     this.app.world.createEntity()
       .addComponent(Transform, { parent: scene })
-      .addComponent(Model, {type: ModelType.Box , material: new THREE.MeshStandardMaterial({color: 0xf28a3a, wireframe: true})})
-      .addComponent(Script)
+      .addComponent(Model, {type: ModelType.Box , material: new THREE.MeshStandardMaterial({color: 0xf28a3a, wireframe: false})})
+      .addComponent(Script, {name: 'rtate'});
 
     // create light
     this.app.world.createEntity()

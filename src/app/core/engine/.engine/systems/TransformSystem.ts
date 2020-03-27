@@ -4,15 +4,14 @@ import { Transform } from '../components/Transform';
 import { Camera } from '../components/Camera';
 import { Model } from '../components/Model';
 import { Light } from '../components/Light';
-import * as THREE from 'three';
+import { World } from '../World';
 
 export class TransformSystem extends System {
 
 
-    constructor() {
-        super();
+    constructor(world: World) {
+        super(world);
         this.queries = [Transform];
-
     }
 
 

@@ -1,13 +1,17 @@
 import { Component } from "../components/Component";
 import { Entity } from "../entities/Entity";
+import { World } from "../World";
 
 export abstract class System {
+
+    world: World;
 
     queries: Array<new (...args: any) => Component>;
 
     enabled: boolean;
 
-    constructor() {
+    constructor(world: World) {
+        this.world = world;
         this.enabled = true;
         this.queries = [];
     }

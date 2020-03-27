@@ -17,6 +17,7 @@ function createWindow() {
         webPreferences: {
             nodeIntegration: true,
             allowRunningInsecureContent: (serve) ? true : false,
+            webSecurity: false
         },
     });
     if (serve) {

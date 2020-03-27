@@ -1,16 +1,15 @@
 class Script {
 
-    constructor(entity, app) {
+    constructor(entity, world) {
         this.entity = entity;
-        this.app = app;
-        /*  this.entity = entity; */
-        
+        this.world = world;
+
     }
 
     update(tick) {
-      /*   this.entity.components[1].value.children[0].material.wireframe = true;
-        this.entity.components[1].value.rotation.y += tick * 0.01;
-        this.entity.components[1].value.rotation.x += tick * 0.01; */
+        this.entity.components[1].value.rotation.y += 0.1;
+        this.entity.components[1].value.rotation.x += 0.1;
+        this.entity.components[1].value.position.x = -1;
         /*  console.log('script1') *//* 
         this.entity.dispatchEvent({ type: 'start', message: 'vroom vroom!' }); */
     }

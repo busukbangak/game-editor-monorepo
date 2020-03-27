@@ -1,13 +1,26 @@
 
 import { Component } from "./Component";
-import { Entity } from "../entities/Entity";
 
 export class Script implements Component {
 
-    value: any;
+    name: string;
 
-    constructor() {
+    reload: boolean;
+
+    value: string;
+
+    constructor(options?: Object) {
+        this.name = undefined;
+        this.reload = false;
         this.value = undefined;
+
+        for (let i in this) {
+            for (let k in options) {
+                if (i === k) {
+                    this[i] = options[k]
+                }
+            }
+        }
     }
 
 }

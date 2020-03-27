@@ -1,52 +1,62 @@
 import { System } from './System';
 import { Entity } from '../entities/Entity';
 import { Script } from '../components/Script';
-import { readFileSync } from 'fs';
-import * as THREE from 'three';
+import { World } from '../World';
+import { AssetManager } from '../managers/AssetManager';
 
 export class ScriptSystem extends System {
 
-    scripts;
-
-    constructor() {
-        super();
+    constructor(world: World) {
+        super(world);
         this.queries = [Script];
-        this.scripts = [];
     }
 
 
     async initialize(entities: Entity[]) {
 
-     /*    let script1 = new Function('entity', readFileSync('./TestScript.js', 'utf8')
-            + 'return new Script(entity, THREE)')(entities[0]);
-        this.scripts.push(script1);
-
-        let script2 = new Function('entity', readFileSync('./TestScript2.js', 'utf8')
-            + 'return new Script(entity, THREE)')(entities[0]);
-        this.scripts.push(script2); */
-
-        try {
-            for (let script of this.scripts) {
-                    script.update(0);   
-            }
-        } catch (e) {
-
-            console.log(e)
-        }
-
-    }
-
-
-    update(tick: number, entities: Entity[]) {
         for (let entity of entities) {
+            try {
+                this.reloadScript(entity)
+            } catch (e) {
+                console.warn(entity, e)
+            }
 
         }
 
-        this.scripts = []
+    }
 
 
+    async update(tick: number, entities: Entity[]) {
+        for (let entity of entities) {
+            if (entity.getComponent(Script).reload) {
+                this.reloadScript(entity);
+            } try {
+                let entityScript: any = entity.getComponent(Script).value;
+                if (entityScript) {
+                    entityScript.update(tick);
+                }
+            } catch (e) {
+                console.warn(entity, e)
+            }
+        }
 
     }
+
+    async reloadScript(entity: Entity) {
+        let assetManager = this.world.getManager(AssetManager);
+
+        // check if script exists
+        if (!assetManager.assets[entity.getComponent(Script).name]) {
+            return console.warn(`Script "${entity.getComponent(Script).name}" doesn't exist!`)
+        }
+
+        let scriptAsset = assetManager.assets[entity.getComponent(Script).name];
+        let script = new Function('entity, world', scriptAsset.value + 'return new Script(entity, world)')(entity, this.world);
+        entity.getComponent(Script).value = script;
+        entity.getComponent(Script).reload = false;
+    }
+
+
 
 
 }
