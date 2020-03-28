@@ -7,13 +7,16 @@ export class Script implements Component {
 
     reload: boolean;
 
+    enabled: boolean;
+
     value: string;
 
     constructor(options?: Object) {
         this.name = undefined;
-        this.reload = false;
+        this.reload = true;
+        this.enabled = true;
         this.value = undefined;
-
+        
         for (let i in this) {
             for (let k in options) {
                 if (i === k) {

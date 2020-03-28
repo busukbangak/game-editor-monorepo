@@ -16,7 +16,11 @@ export class ScriptSystem extends System {
 
         for (let entity of entities) {
             try {
-                this.reloadScript(entity)
+                if (entity.getComponent(Script).value) {
+                    entity.getComponent(Script).reload = false;
+                } else {
+                    this.reloadScript(entity)
+                }
             } catch (e) {
                 console.warn(entity, e)
             }
@@ -31,12 +35,16 @@ export class ScriptSystem extends System {
             if (entity.getComponent(Script).reload) {
                 this.reloadScript(entity);
             } try {
-                let entityScript: any = entity.getComponent(Script).value;
-                if (entityScript) {
-                    entityScript.update(tick);
+                let script: any = entity.getComponent(Script).value;
+                if (script) {
+                    switch (typeof script) {
+                        case 'function': script(tick, entity, this.world); break;
+                        case 'object': script.update(tick); break;
+                    }
                 }
             } catch (e) {
-                console.warn(entity, e)
+                console.error(entity, e)
+                entity.getComponent(Script).value = undefined;
             }
         }
 
@@ -47,7 +55,9 @@ export class ScriptSystem extends System {
 
         // check if script exists
         if (!assetManager.assets[entity.getComponent(Script).name]) {
-            return console.warn(`Script "${entity.getComponent(Script).name}" doesn't exist!`)
+            entity.getComponent(Script).reload = false;
+            return console.warn(`Script "${entity.getComponent(Script).name}" doesn't exist!`, entity)
+
         }
 
         let scriptAsset = assetManager.assets[entity.getComponent(Script).name];

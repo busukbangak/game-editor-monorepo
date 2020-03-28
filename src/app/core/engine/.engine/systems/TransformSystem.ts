@@ -5,7 +5,7 @@ import { Camera } from '../components/Camera';
 import { Model } from '../components/Model';
 import { Light } from '../components/Light';
 import { World } from '../World';
-
+import { Renderer } from '../components/Renderer'
 export class TransformSystem extends System {
 
 
@@ -34,10 +34,29 @@ export class TransformSystem extends System {
                 }
             }
         }
+
     }
 
 
     update(tick: number, entities: Entity[]) {
+        for (let entity of entities) {
+
+            let transformComponent = entity.getComponent(Transform);
+            let transform = transformComponent.value;
+
+            // add all the other components with position to grouped transform element
+            for (let component of entity.components) {
+                if (component instanceof Camera) {
+                    transform.add(component.value)
+                }
+                if (component instanceof Model) {
+                    transform.add(component.value)
+                }
+                if (component instanceof Light) {
+                    transform.add(component.value)
+                }
+            }
+        }
     }
 
 

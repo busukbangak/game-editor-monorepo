@@ -9,6 +9,14 @@ export class Transform implements Component {
 
     children: THREE.Object3D[];
 
+    position: THREE.Vector3;
+
+    rotation: THREE.Euler;
+
+    quaternion: THREE.Quaternion;
+
+    scale: THREE.Vector3;
+
     value: THREE.Group;
 
     constructor(options?: Object) {
