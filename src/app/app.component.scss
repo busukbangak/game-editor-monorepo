@@ -2,9 +2,13 @@
     width: 100%;
     height: 100%;
     display: grid;
-    grid-template-columns: 350px 1.6fr;
-    grid-template-rows: 1.5fr 250px;
-    grid-template-areas: "sidebar showroom" "sidebar bottombar";
+    grid-template-columns: 300px 1fr;
+    grid-template-rows: auto 1fr 200px;
+    grid-template-areas: "titlebar titlebar" "sidebar showroom" "sidebar bottombar";
+}
+
+app-titlebar {
+    grid-area: titlebar;
 }
 
 app-sidebar {

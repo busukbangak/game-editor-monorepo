@@ -1,0 +1,128 @@
+.mac-titlebar-container {
+	-webkit-app-region: drag;
+	width: 100%;
+	height: 22px;
+	display: flex;
+	justify-content: space-between;
+
+	.traffic-lights-container {
+		display: flex;
+		align-items: center;
+
+		&:hover svg {
+			opacity: 1;
+		}
+	}
+
+	.content-container {
+	}
+
+	.menu-container {
+        display: flex;
+        align-items: center;
+
+        &:hover {
+            background: lightgray;
+        }
+
+        .menu-button {
+            -webkit-app-region: no-drag;
+            margin: 0 6px 0 6px;
+            display: flex;
+
+            svg {
+                width: 18px;
+                height: 18px;
+                fill: lightgray;
+            }
+        }
+    }
+}
+
+.disabled {
+	-webkit-app-region: no-drag;
+	width: 10px;
+	height: 10px;
+	border-radius: 50%;
+	margin: 0 6px 0 6px;
+	line-height: 0;
+
+	border: 1px solid gray;
+	background-color: lightgray;
+	margin-left: 6px;
+}
+
+.close-window {
+	-webkit-app-region: no-drag;
+	width: 10px;
+	height: 10px;
+	border-radius: 50%;
+	margin: 0 6px 0 6px;
+	line-height: 0;
+
+	border: 1px solid #e2463f;
+	background-color: #ff5f57;
+	margin-left: 6px;
+
+	&:active {
+		border-color: #ad3934;
+		background-color: #bf4943;
+	}
+
+	svg {
+		width: 6px;
+		height: 6px;
+		margin-top: 2px;
+		margin-left: 2px;
+		opacity: 0;
+	}
+}
+.minimize-window {
+	-webkit-app-region: no-drag;
+	width: 10px;
+	height: 10px;
+	border-radius: 50%;
+	margin: 0 6px 0 6px;
+	line-height: 0;
+
+	border: 1px solid #e1a116;
+	background-color: #ffbd2e;
+
+	&:active {
+		border-color: #ad7d15;
+		background-color: #bf9123;
+	}
+
+	svg {
+		width: 8px;
+		height: 8px;
+		margin-top: 1px;
+		margin-left: 1px;
+		opacity: 0;
+	}
+}
+
+.min-max-window {
+	-webkit-app-region: no-drag;
+	width: 10px;
+	height: 10px;
+	border-radius: 50%;
+	margin: 0 6px 0 6px;
+	line-height: 0;
+
+	border: 1px solid #12ac28;
+	background-color: #28c940;
+
+	&:active {
+		border-color: #128622;
+		background-color: #1f9a31;
+	}
+
+	svg {
+		width: 6px;
+		height: 6px;
+		margin-top: 2px;
+		margin-left: 2px;
+		opacity: 0;
+	}
+}
