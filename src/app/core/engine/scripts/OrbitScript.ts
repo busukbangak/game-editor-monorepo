@@ -24,10 +24,10 @@ import {
 //    Zoom - middle mouse, or mousewheel / touch: two-finger spread or squish
 //    Pan - right mouse, or left mouse + ctrl/meta/shiftKey, or arrow keys / touch: two-finger move
 
-var OrbitControls = function (object, domElement) {
+var OrbitScript = function (object, domElement) {
 
-	if (domElement === undefined) console.warn('THREE.OrbitControls: The second parameter "domElement" is now mandatory.');
-	if (domElement === document) console.error('THREE.OrbitControls: "document" should not be used as the target "domElement". Please use "renderer.domElement" instead.');
+	if (domElement === undefined) console.warn('THREE.OrbitScript: The second parameter "domElement" is now mandatory.');
+	if (domElement === document) console.error('THREE.OrbitScript: "document" should not be used as the target "domElement". Please use "renderer.domElement" instead.');
 
 	this.object = object;
 	this.domElement = domElement;
@@ -139,7 +139,6 @@ var OrbitControls = function (object, domElement) {
 
 	// this method is exposed, but perhaps it would be better if we can make it private...
 	this.update = function () {
-
 		var offset = new Vector3();
 
 		// so camera.up is the orbit axis
@@ -150,7 +149,6 @@ var OrbitControls = function (object, domElement) {
 		var lastQuaternion = new Quaternion();
 
 		return function update() {
-
 
 			if (!scope.object.parent) {
 				return
@@ -420,7 +418,7 @@ var OrbitControls = function (object, domElement) {
 			} else {
 
 				// camera neither orthographic nor perspective
-				console.warn('WARNING: OrbitControls.js encountered an unknown camera type - pan disabled.');
+				console.warn('WARNING: OrbitScript.js encountered an unknown camera type - pan disabled.');
 				scope.enablePan = false;
 
 			}
@@ -443,7 +441,7 @@ var OrbitControls = function (object, domElement) {
 
 		} else {
 
-			console.warn('WARNING: OrbitControls.js encountered an unknown camera type - dolly/zoom disabled.');
+			console.warn('WARNING: OrbitScript.js encountered an unknown camera type - dolly/zoom disabled.');
 			scope.enableZoom = false;
 
 		}
@@ -464,7 +462,7 @@ var OrbitControls = function (object, domElement) {
 
 		} else {
 
-			console.warn('WARNING: OrbitControls.js encountered an unknown camera type - dolly/zoom disabled.');
+			console.warn('WARNING: OrbitScript.js encountered an unknown camera type - dolly/zoom disabled.');
 			scope.enableZoom = false;
 
 		}
@@ -1137,13 +1135,13 @@ var OrbitControls = function (object, domElement) {
 
 };
 
-OrbitControls.prototype = Object.create(EventDispatcher.prototype);
-OrbitControls.prototype.constructor = OrbitControls;
+OrbitScript.prototype = Object.create(EventDispatcher.prototype);
+OrbitScript.prototype.constructor = OrbitScript;
 
 
 // This set of controls performs orbiting, dollying (zooming), and panning.
 // Unlike TrackballControls, it maintains the "up" direction object.up (+Y by default).
-// This is very similar to OrbitControls, another set of touch behavior
+// This is very similar to OrbitScript, another set of touch behavior
 //
 //    Orbit - right mouse, or left mouse + ctrl/meta/shiftKey / touch: two-finger rotate
 //    Zoom - middle mouse, or mousewheel / touch: two-finger spread or squish
@@ -1151,7 +1149,7 @@ OrbitControls.prototype.constructor = OrbitControls;
 
 var MapControls = function (object, domElement) {
 
-	OrbitControls.call(this, object, domElement);
+	OrbitScript.call(this, object, domElement);
 
 	this.mouseButtons.LEFT = MOUSE.PAN;
 	this.mouseButtons.RIGHT = MOUSE.ROTATE;
@@ -1164,4 +1162,4 @@ var MapControls = function (object, domElement) {
 MapControls.prototype = Object.create(EventDispatcher.prototype);
 MapControls.prototype.constructor = MapControls;
 
-export { OrbitControls, MapControls };
+export { OrbitScript, MapControls };
