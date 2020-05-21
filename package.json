@@ -1,0 +1,48 @@
+{
+  "_from": "@awanali/dot-engine",
+  "_id": "@awanali/dot-engine@0.0.12",
+  "_inBundle": false,
+  "_integrity": "sha512-0P9CASFNiZpjufLfD7/cRaEudYYLPceXkOgUuLVFigStZfxFUIcYKFhT6iuKk2MdJdaPBu+KCANoBrDbn6SAnA==",
+  "_location": "/@awanali/dot-engine",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "tag",
+    "registry": true,
+    "raw": "@awanali/dot-engine",
+    "name": "@awanali/dot-engine",
+    "escapedName": "@awanali%2fdot-engine",
+    "scope": "@awanali",
+    "rawSpec": "",
+    "saveSpec": null,
+    "fetchSpec": "latest"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/@awanali/dot-engine/-/dot-engine-0.0.12.tgz",
+  "_shasum": "67aced2719caa4f6014d3f443c503755de944054",
+  "_spec": "@awanali/dot-engine",
+  "_where": "/Users/user/Desktop/Aliim/desktop-game-editor",
+  "author": "",
+  "bundleDependencies": false,
+  "dependencies": {
+    "nanoid": "^3.1.9",
+    "shortid": "^2.2.15",
+    "three": "^0.116.1"
+  },
+  "deprecated": false,
+  "description": "",
+  "devDependencies": {
+    "typescript": "^3.9.3"
+  },
+  "license": "ISC",
+  "main": "lib/index.js",
+  "name": "@awanali/dot-engine",
+  "scripts": {
+    "build": "tsc -p .",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "types": "lib",
+  "version": "0.0.12"
+}
