@@ -1,1 +1,1 @@
-console.log('yeet')
+console.log(new Application())
