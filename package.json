@@ -77,6 +77,7 @@
     "node": ">=10.13.0"
   },
   "dependencies": {
+    "@awanali/dot-engine": "0.0.14",
     "shortid": "^2.2.15",
     "three": "^0.114.0",
     "three-orbitcontrols-ts": "^0.1.2"
