@@ -1,6 +1,6 @@
 import { World } from './World';
 
-class Application {
+class App {
 
     world: World;
 
@@ -18,7 +18,7 @@ class Application {
 
 }
 
-export { Application };
+export { App };
 
 
 /*

@@ -38,8 +38,8 @@ class ScriptSystem extends System {
                 let script: any = entity.getComponent(Script).value;
                 if (script) {
                     switch (typeof script) {
-                        case 'function': script(tick, entity, this.world); break;
-                        case 'object': script.update(tick); break;
+                        case 'function': script(entity, this.world); break;
+                        case 'object': script.update(entity, this.world); break;
                     }
                 }
             } catch (e) {

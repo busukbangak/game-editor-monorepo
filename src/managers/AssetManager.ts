@@ -18,7 +18,6 @@ class AssetManager {
         this.fileLoader = new THREE.FileLoader(this.loadingManager);
 
         this.loadingManager.onLoad = function () {
-
             console.log('Loading Assets complete!');
 
         };
