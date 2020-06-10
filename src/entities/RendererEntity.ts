@@ -12,7 +12,8 @@ class RendererEntity extends Entity {
             active: true,
             canvas: canvas, 
             antialias: true, 
-            alpha: true 
+            alpha: true,
+            resize: true
         });
 
     }

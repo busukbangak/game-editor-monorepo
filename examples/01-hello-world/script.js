@@ -1,36 +1,14 @@
-
-const canvas = document.getElementById("app-canvas");
-
-class RotationScript {
-
-    x = 0;
-
-    y = 0;
-
-    constructor(world) {
-        world.managers[1].on('TestEvent', (event) => {
-            console.log(event.data);
-            this.x = event.data.x;
-            this.y = event.data.y;
-            world.managers[1].off('TestEvent')
-        })
-    }
-
-    update(entity, world) {
-        entity.getComponent(DOT.Transform).value.rotation.x += this.x;
-        entity.getComponent(DOT.Transform).value.rotation.y += this.y;
-    }
-}
-
 // create new application
 let app = new DOT.App();
 
 // load assets immediately
-/* await this.app.world.getManager(AssetManager).loadAsset('file:///Users/user/Desktop/desktop-game-editor/TestScript2.js');
+/* let loadAssets = async() => {
+    await app.world.getManager(DOT.AssetManager).loadAsset('file://Users/user/Desktop/game-engine/examples/01-hello-world/assets/RotationScript.js');
+} *//* 
 await this.app.world.getManager(AssetManager).loadAsset('file:///Users/user/Desktop/desktop-game-editor/TestScript.js', 'rotate'); */
 
 // create renderer
-let rendererEntity = new DOT.RendererEntity(canvas);
+let rendererEntity = new DOT.RendererEntity();
 app.world.addEntity(rendererEntity);
 
 // create scene
@@ -47,8 +25,8 @@ let modelEntity = app.world.createEntity()
     .addComponent(DOT.Model, {
         type: DOT.ModelType.Box,
         material: new THREE.MeshStandardMaterial({ color: 0xf28a3a, wireframe: true })
-    })
-    .addComponent(DOT.Script, { value: new RotationScript(app.world) })
+    })/* 
+    .addComponent(DOT.Script, { value: new RotationScript() }) */
 
 
 // create light

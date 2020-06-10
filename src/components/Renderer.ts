@@ -14,11 +14,14 @@ class Renderer implements Component {
 
     readonly value: THREE.WebGLRenderer;
 
+    readonly resize: boolean;
+
     constructor(options?: Object) {
         this.active = false;
         this.canvas = undefined;
         this.antialias = false;
         this.alpha = false;
+        this.resize = true;
 
         for (let i in this) {
             for (let k in options) {

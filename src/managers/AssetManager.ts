@@ -1,7 +1,8 @@
 
 import * as THREE from "three";
+import { Manager } from "./Manager";
 
-class AssetManager {
+class AssetManager implements Manager {
 
     assets: {[key: string]: {value: any, path: string, tags?: string[]}};
 
@@ -49,6 +50,7 @@ class AssetManager {
                 return res;
             });
     }
+
 
 }
 

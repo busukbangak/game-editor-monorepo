@@ -30,4 +30,11 @@ export * from './systems/ScriptSystem';
 export * from './managers/AssetManager';
 export * from './managers/EventManager';
 
+/*TODO: 
+    ASsetmanager,
+    cammeramangers,
+    scenemanager,
+    scriptAnatomy,
+    replace threejs
+*/
 
