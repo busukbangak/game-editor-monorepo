@@ -1,14 +1,14 @@
 {
   "name": "@awanali/dot-engine",
-  "version": "0.0.13",
+  "version": "0.0.17",
   "description": "ecs game engine",
-  "main": "index.js",
+  "main": "./lib/index.js",
   "author": "Aliim Wan",
   "license": "MIT",
   "scripts": {
     "clean": "shx rm -rf dist lib lib-esm",
     "prod": "npm run clean && tsc && tsc -m es6 --outDir lib-esm && webpack --mode=production",
-    "dev": "npm run clean && webpack --watch --mode=development"
+    "dev": "npm run clean && webpack --watch --progress --mode=development"
   },
   "dependencies": {
     "three": "x",

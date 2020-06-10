@@ -1,10 +1,6 @@
 import { nanoid } from 'nanoid';
 import { Component } from '../components/Component';
 
-enum ComponentType {
-    Camera = 'Camera'
-}
-
 class Entity {
 
     id: string;
@@ -54,4 +50,4 @@ class Entity {
     
 }
 
-export { Entity, ComponentType };
+export { Entity };

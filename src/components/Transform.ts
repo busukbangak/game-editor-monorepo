@@ -17,7 +17,7 @@ class Transform implements Component {
 
     scale: THREE.Vector3;
 
-    value: THREE.Group;
+    value: THREE.Group | THREE.Scene;
 
     constructor(options?: Object) {
         this.parent = undefined;

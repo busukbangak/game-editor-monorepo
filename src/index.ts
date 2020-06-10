@@ -3,6 +3,9 @@ export * from './App';
 
 // Entities
 export * from './entities/Entity';
+export * from './entities/CameraEntity';
+export * from './entities/SceneEntity';
+export * from './entities/RendererEntity';
 
 // Components
 export * from './components/Animation';
@@ -26,3 +29,5 @@ export * from './systems/ScriptSystem';
 // Managers
 export * from './managers/AssetManager';
 export * from './managers/EventManager';
+
+

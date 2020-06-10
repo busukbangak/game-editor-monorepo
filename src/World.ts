@@ -5,6 +5,7 @@ import { TransformSystem } from './systems/TransformSystem';
 import { RenderSystem } from './systems/RenderSystem';
 import { Manager } from "./managers/Manager";
 import { AssetManager } from "./managers/AssetManager";
+import { EventManager } from "./managers/EventManager";
 
 class World {
 
@@ -33,15 +34,17 @@ class World {
         this.enabled = false;
 
         this.managers.push(new AssetManager())
+        this.managers.push(new EventManager())
 
     }
 
     async initialize() {
         
         // create default systems
+        
+        this.createSystem(RenderSystem);
         this.createSystem(ScriptSystem);
         this.createSystem(TransformSystem);
-        this.createSystem(RenderSystem);
 
         // initialize systems
         for (let system of this.systems) {
@@ -65,6 +68,11 @@ class World {
 
     createEntity() {
         let entity = new Entity();
+        this.entities.push(entity)
+        return entity;
+    }
+
+    addEntity(entity: Entity) {
         this.entities.push(entity)
         return entity;
     }

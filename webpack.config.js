@@ -44,4 +44,15 @@ const config = {
   }
 }
 
-module.exports = config;
+
+
+module.exports = (env, argv) => {
+
+  if (argv.mode === 'development') {
+  }
+
+  if (argv.mode === 'production') {
+  }
+
+  return config;
+}
