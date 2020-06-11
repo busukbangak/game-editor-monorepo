@@ -6,19 +6,21 @@
   "author": "Aliim Wan",
   "license": "MIT",
   "scripts": {
-    "clean": "shx rm -rf dist lib lib-esm",
-    "prod": "npm run clean && tsc && tsc -m es6 --outDir lib-esm && webpack --mode=production",
-    "dev": "npm run clean && webpack --watch --progress --mode=development"
+    "clean": "shx rm -rf dist lib",
+    "prod": "npm run clean && tsc && webpack --mode=development && webpack --mode=production",
+    "dev": "npm run clean && webpack-dev-server --inline --progress --mode=development"
   },
   "dependencies": {
-    "three": "x",
-    "nanoid": "x"
+    "nanoid": "x",
+    "three": "x"
   },
   "devDependencies": {
+    "cross-env": "^7.0.2",
     "shx": "^0.3.2",
     "ts-loader": "^7.0.5",
     "typescript": "^3.9.5",
     "webpack": "^4.43.0",
-    "webpack-cli": "^3.3.11"
+    "webpack-cli": "^3.3.11",
+    "webpack-dev-server": "^3.11.0"
   }
 }

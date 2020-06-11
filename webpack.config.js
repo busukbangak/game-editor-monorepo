@@ -1,5 +1,4 @@
 const path = require("path");
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 const PATHS = {
   entryPoint: path.resolve(__dirname, 'src/index.ts'),
@@ -12,7 +11,7 @@ const config = {
   // the name to filter the second entry point for applying code
   // minification via UglifyJS
   entry: {
-    'DOT': [PATHS.entryPoint]
+    'dot': [PATHS.entryPoint]
   },
   // The output defines how and where we want the bundles. The special
   // value `[name]` in `filename` tell Webpack to use the name we defined above.
@@ -20,10 +19,10 @@ const config = {
   // it will be accessible at `window.MyLib`
   output: {
     path: PATHS.bundles,
-    filename: '[name].js',
     libraryTarget: 'umd',
     library: 'DOT',
-    umdNamedDefine: true
+    umdNamedDefine: true,
+    publicPath: '/dist'
   },
   // Add resolve for `tsx` and `ts` files, otherwise Webpack would
   // only look for common JavaScript file extension (.js)
@@ -41,6 +40,13 @@ const config = {
         exclude: /node_modules/,
       },
     ],
+  },
+  devServer: {
+    port: 4200,
+    contentBase: path.join(__dirname, 'examples'),
+    contentBasePublicPath: '/examples',
+    watchContentBase: true,
+    writeToDisk: true
   }
 }
 
@@ -49,9 +55,13 @@ const config = {
 module.exports = (env, argv) => {
 
   if (argv.mode === 'development') {
+
+    config.output.filename = '[name].js';
   }
 
   if (argv.mode === 'production') {
+    config.output.filename = '[name].min.js';
+
   }
 
   return config;

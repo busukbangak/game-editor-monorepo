@@ -29,7 +29,7 @@ class RenderSystem extends System {
 
         if (this.activeRenderer.resize) {
             window.addEventListener('resize', () => {
-                this.resizeCanvas()
+                this.resizeCanvas() 
             });
         }
     }

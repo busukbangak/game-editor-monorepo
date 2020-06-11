@@ -1,6 +1,7 @@
 
 import * as THREE from "three";
 import { Manager } from "./Manager";
+import { basename } from "path";
 
 class AssetManager implements Manager {
 
@@ -26,7 +27,7 @@ class AssetManager implements Manager {
 
         this.loadingManager.onProgress = function (url, itemsLoaded, itemsTotal) {
 
-     /*        console.log('Loading file: ' + basename(url) + '.\nLoaded ' + itemsLoaded + ' of ' + itemsTotal + ' files.'); */
+            console.log('Loading file: ' + basename(url) + '.\nLoaded ' + itemsLoaded + ' of ' + itemsTotal + ' files.');
 
         };
 
@@ -39,9 +40,15 @@ class AssetManager implements Manager {
     }
 
 
-    async loadAsset(path: string, name?: string, tags?: string[]) {
-        if (!name) {
-            /* name = basename(path).split('.')[0]; */
+    async loadAsset(name: string, path?: string, tags?: string[]) {
+
+        if(this.assets[name]) {
+            return this.assets[name]
+        }
+
+        if(!path) {
+            console.warn(`Asset ${name} not found!`);
+            return;
         }
 
         return new Promise(resolve => this.fileLoader.load(path, resolve))

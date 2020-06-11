@@ -31,11 +31,13 @@ class ScriptSystem extends System {
 
 
     async update(tick: number, entities: Entity[]) {
+        
         for (let entity of entities) {
             if (entity.getComponent(Script).reload) {
                 this.reloadScript(entity);
             } try {
                 let script: any = entity.getComponent(Script).value;
+              /*   console.log(typeof script) */ 
                 if (script) {
                     switch (typeof script) {
                         case 'function': script(entity, this.world); break;
