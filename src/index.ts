@@ -48,7 +48,6 @@ SCIRPTSYSTEM
 -> script kann entität über this getten
 -> script kann events feuern über this
 -> script ist klasse
--> script ist funktion
 
 */
 

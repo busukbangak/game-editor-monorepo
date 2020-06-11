@@ -9,8 +9,7 @@
     "suppressImplicitAnyIndexErrors": true,
     "forceConsistentCasingInFileNames": true,
     "sourceMap": true,
-    "declaration": true,
-    "jsx": "react"
+    "declaration": true
   },
   "files": [
     "./src/index.ts"

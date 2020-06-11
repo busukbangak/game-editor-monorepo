@@ -6,7 +6,7 @@
   "author": "Aliim Wan",
   "license": "MIT",
   "scripts": {
-    "clean": "shx rm -rf build lib",
+    "clean": "shx rm -rf build lib docs",
     "prod": "npm run clean && tsc && webpack --mode=development && webpack --mode=production",
     "dev": "npm run clean && webpack-dev-server --inline --progress --mode=development"
   },
@@ -17,6 +17,8 @@
   "devDependencies": {
     "shx": "^0.3.2",
     "ts-loader": "^7.0.5",
+    "typedoc": "^0.17.7",
+    "typedoc-webpack-plugin": "^1.1.4",
     "typescript": "^3.9.5",
     "webpack": "^4.43.0",
     "webpack-cli": "^3.3.11",

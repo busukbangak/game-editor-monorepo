@@ -7,6 +7,9 @@ import { Manager } from "./managers/Manager";
 import { AssetManager } from "./managers/AssetManager";
 import { EventManager } from "./managers/EventManager";
 
+/**
+ * World
+ */
 class World {
 
     entities: Entity[];

@@ -1,4 +1,5 @@
 const path = require("path");
+const TypedocWebpackPlugin = require('typedoc-webpack-plugin');
 
 const PATHS = {
   entryPoint: path.resolve(__dirname, 'src/index.ts'),
@@ -27,11 +28,14 @@ const config = {
   // Add resolve for `tsx` and `ts` files, otherwise Webpack would
   // only look for common JavaScript file extension (.js)
   resolve: {
-    extensions: ['.ts', '.tsx', '.js']
+    extensions: ['.ts', '.js']
   },
   // Activate source maps for the bundles in order to preserve the original
   // source when the user debugs the application
   devtool: 'source-map',
+  plugins: [
+    new TypedocWebpackPlugin({out: '../docs'}, './src')
+  ],
   module: {
     rules: [
       {
@@ -43,8 +47,8 @@ const config = {
   },
   devServer: {
     port: 4200,
-    contentBase: path.join(__dirname, 'examples'),
-    contentBasePublicPath: '/examples',
+    contentBase: path.join(__dirname),
+    contentBasePublicPath: '/',
     watchContentBase: true,
     writeToDisk: true
   }
