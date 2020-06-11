@@ -8,18 +8,18 @@ export * from './entities/SceneEntity';
 export * from './entities/RendererEntity';
 
 // Components
-export * from './components/Animation';
-export * from './components/Audio';
-export * from './components/Camera';
-export * from './components/Light';
-export * from './components/Model';
-export * from './components/Particle';
-export * from './components/Renderer';
-export * from './components/Rigidbody';
-export * from './components/Scene';
-export * from './components/Script';
-export * from './components/Sprite';
-export * from './components/Transform';
+export * from './components/AnimationComponent';
+export * from './components/AudioComponent';
+export * from './components/CameraComponent';
+export * from './components/LightComponent';
+export * from './components/ModelComponent';
+export * from './components/ParticleComponent';
+export * from './components/RendererComponent';
+export * from './components/RigidbodyComponent';
+export * from './components/SceneComponent';
+export * from './components/ScriptComponent';
+export * from './components/SpriteComponent';
+export * from './components/TransformComponent';
 
 // Systems
 export * from './systems/RenderSystem';
@@ -30,11 +30,25 @@ export * from './systems/ScriptSystem';
 export * from './managers/AssetManager';
 export * from './managers/EventManager';
 
-/*TODO: 
-    ASsetmanager,
-    cammeramangers,
-    scenemanager,
-    scriptAnatomy,
-    replace threejs
+/*TODO:
+Assetmanager,
+cammeramangers,
+scenemanager,
+scriptAnatomy,
+replace threejs
+PhysicsSystem
+CameraSystem
+AudioSystem
+AnimationSystem
+
+SCIRPTSYSTEM
+-> typescript 
+-> javascript
+-> external library (import, exports)
+-> script kann entität über this getten
+-> script kann events feuern über this
+-> script ist klasse
+-> script ist funktion
+
 */
 

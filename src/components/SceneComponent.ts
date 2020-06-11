@@ -10,7 +10,7 @@ interface SceneParameters {
     environment: null | THREE.Texture
 }
 
-class Scene implements Component {
+class SceneComponent implements Component {
 
     active: boolean;
 
@@ -63,4 +63,4 @@ class Scene implements Component {
 
 }
 
-export { Scene, SceneParameters };
+export { SceneComponent, SceneParameters };

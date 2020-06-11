@@ -1,9 +1,9 @@
 import { System } from './System';
 import { Entity } from '../entities/Entity';
-import { Transform } from '../components/Transform';
-import { Camera } from '../components/Camera';
-import { Model } from '../components/Model';
-import { Light } from '../components/Light';
+import { TransformComponent } from '../components/TransformComponent';
+import { CameraComponent } from '../components/CameraComponent';
+import { ModelComponent } from '../components/ModelComponent';
+import { LightComponent } from '../components/LightComponent';
 import { World } from '../World';
 import { RenderSystem } from './RenderSystem';
 
@@ -12,25 +12,25 @@ class TransformSystem extends System {
 
     constructor(world: World) {
         super(world);
-        this.queries = [Transform];
+        this.queries = [TransformComponent];
     }
 
 
     initialize(entities: Entity[]) {
         for (let entity of entities) {
 
-            let transformComponent = entity.getComponent(Transform);
+            let transformComponent = entity.getComponent(TransformComponent);
             let transform = transformComponent.value;
  
             // add all the other components with position to grouped transform element
             for (let component of entity.components) {
-                if (component instanceof Camera) {
+                if (component instanceof CameraComponent) {
                     transform.add(component.value)
                 }
-                if (component instanceof Model) {
+                if (component instanceof ModelComponent) {
                     transform.add(component.value)
                 }
-                if (component instanceof Light) {
+                if (component instanceof LightComponent) {
                     transform.add(component.value)
                 }
             }
@@ -51,7 +51,7 @@ class TransformSystem extends System {
     update(tick: number, entities: Entity[]) {
         for (let entity of entities) {
 
-            let transformComponent = entity.getComponent(Transform);
+            let transformComponent = entity.getComponent(TransformComponent);
             let transform = transformComponent.value;
 
             if(!transform) {
@@ -60,13 +60,13 @@ class TransformSystem extends System {
 
             // add all the other components with position to grouped transform element
             for (let component of entity.components) {
-                if (component instanceof Camera) {
+                if (component instanceof CameraComponent) {
                     transform.add(component.value)
                 }
-                if (component instanceof Model) {
+                if (component instanceof ModelComponent) {
                     transform.add(component.value)
                 }
-                if (component instanceof Light) {
+                if (component instanceof LightComponent) {
                     transform.add(component.value)
                 }
             }

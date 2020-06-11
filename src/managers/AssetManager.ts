@@ -19,15 +19,15 @@ class AssetManager implements Manager {
         this.loadingManager = new THREE.LoadingManager();
         this.fileLoader = new THREE.FileLoader(this.loadingManager);
 
-        this.loadingManager.onLoad = function () {
-            console.log('Loading Assets complete!');
+        this.loadingManager.onLoad = function () {/* 
+            console.log('Loading Assets complete!'); */
 
         };
 
 
         this.loadingManager.onProgress = function (url, itemsLoaded, itemsTotal) {
-
-            console.log('Loading file: ' + basename(url) + '.\nLoaded ' + itemsLoaded + ' of ' + itemsTotal + ' files.');
+/* 
+            console.log('Loading file: ' + basename(url) + '.\nLoaded ' + itemsLoaded + ' of ' + itemsTotal + ' files.'); */
 
         };
 

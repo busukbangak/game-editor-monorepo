@@ -1,11 +1,11 @@
 
 import { Component } from "./Component";
 
-class Rigidbody implements Component {
+class ParticleComponent implements Component {
 
     constructor() {
     }
 
 }
 
-export { Rigidbody };
+export { ParticleComponent };

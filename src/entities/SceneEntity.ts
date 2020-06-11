@@ -1,5 +1,5 @@
 import { Entity } from './Entity';
-import { Scene } from '../components/Scene';
+import { SceneComponent } from '../components/SceneComponent';
 import * as THREE from 'three';
 
 class SceneEntity extends Entity {
@@ -7,7 +7,7 @@ class SceneEntity extends Entity {
     constructor() {
         super();
 
-        this.addComponent(Scene, { 
+        this.addComponent(SceneComponent, { 
             active: true, 
             background: new THREE.Color(0x959595) 
         });

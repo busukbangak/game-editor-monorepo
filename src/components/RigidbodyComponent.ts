@@ -1,11 +1,11 @@
 
 import { Component } from "./Component";
 
-class Audio implements Component {
+class RigidbodyComponent implements Component {
 
     constructor() {
     }
 
 }
 
-export { Audio };
+export { RigidbodyComponent };

@@ -1,6 +1,6 @@
 {
   "name": "@awanali/dot-engine",
-  "version": "0.0.17",
+  "version": "0.0.18",
   "description": "ecs game engine",
   "main": "./lib/index.js",
   "author": "Aliim Wan",

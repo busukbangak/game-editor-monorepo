@@ -1,14 +1,14 @@
 import { Entity } from './Entity';
-import { Renderer } from '../components/Renderer';
+import { RendererComponent } from '../components/RendererComponent';
 
 class RendererEntity extends Entity {
     
 
-    constructor(canvas) {
+    constructor(canvas?: HTMLCanvasElement) {
         super();
 
 
-        this.addComponent(Renderer, { 
+        this.addComponent(RendererComponent, { 
             active: true,
             canvas: canvas, 
             antialias: true, 

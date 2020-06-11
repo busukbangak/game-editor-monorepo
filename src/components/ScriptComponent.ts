@@ -1,7 +1,7 @@
 
 import { Component } from "./Component";
 
-class Script implements Component {
+class ScriptComponent implements Component {
 
     name: string;
 
@@ -28,4 +28,4 @@ class Script implements Component {
 
 }
 
-export { Script };
+export { ScriptComponent };

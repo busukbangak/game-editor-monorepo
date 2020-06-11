@@ -1,13 +1,13 @@
 
 import { Component } from "./Component";
 import * as THREE from "three";
-import { Scene } from "./Scene";
+import { SceneComponent } from "./SceneComponent";
 
-class Transform implements Component {
+class TransformComponent implements Component {
 
-    parent: Scene | Transform
+    parent: SceneComponent | TransformComponent
 
-    children: THREE.Object3D[];
+    children: TransformComponent[];
 
     position: THREE.Vector3;
 
@@ -41,4 +41,4 @@ class Transform implements Component {
 
 }
 
-export { Transform };
+export { TransformComponent };

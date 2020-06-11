@@ -8,7 +8,7 @@ enum ModelType {
     Cone
 }
 
-class Model implements Component {
+class ModelComponent implements Component {
 
     type: ModelType;
 
@@ -38,4 +38,4 @@ class Model implements Component {
 
 }
 
-export { Model, ModelType};
+export { ModelComponent, ModelType};

@@ -6,7 +6,7 @@ enum LightType {
     Ambient
 }
 
-class Light implements Component {
+class LightComponent implements Component {
 
     type: LightType;
 
@@ -31,4 +31,4 @@ class Light implements Component {
 
 }
 
-export { Light, LightType};
+export { LightComponent, LightType};

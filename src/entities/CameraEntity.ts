@@ -1,24 +1,22 @@
 import { Entity } from './Entity';
-import { Transform } from '../components/Transform';
-import { Camera, CameraType } from '../components/Camera';
+import { TransformComponent } from '../components/TransformComponent';
+import { CameraComponent, CameraType } from '../components/CameraComponent';
 
 class CameraEntity extends Entity {
 
     constructor() {
         super();
 
-        this.addComponent(Transform);
+        this.addComponent(TransformComponent);
 
-        this.addComponent(Camera, { 
+        this.addComponent(CameraComponent, { 
             active: true,
             type: CameraType.Perspective 
         })
 
-        this.getComponent(Transform).value.translateX(0);
-        this.getComponent(Transform).value.translateY(0);
-        this.getComponent(Transform).value.translateZ(5);
-
-        this.getComponent(Camera).value.lookAt(0,0,0)
+        this.getComponent(TransformComponent).value.translateX(0);
+        this.getComponent(TransformComponent).value.translateY(0);
+        this.getComponent(TransformComponent).value.translateZ(5);
         
     }
 }

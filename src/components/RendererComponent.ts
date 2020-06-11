@@ -2,7 +2,7 @@
 import { Component } from "./Component";
 import * as THREE from "three";
 
-class Renderer implements Component {
+class RendererComponent implements Component {
 
     active: boolean;
 
@@ -37,4 +37,4 @@ class Renderer implements Component {
 
 }
 
-export { Renderer };
+export { RendererComponent};

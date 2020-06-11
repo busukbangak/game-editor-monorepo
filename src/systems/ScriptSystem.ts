@@ -1,6 +1,6 @@
 import { System } from './System';
 import { Entity } from '../entities/Entity';
-import { Script } from '../components/Script';
+import { ScriptComponent } from '../components/ScriptComponent';
 import { World } from '../World';
 import { AssetManager } from '../managers/AssetManager';
 
@@ -8,7 +8,7 @@ class ScriptSystem extends System {
 
     constructor(world: World) {
         super(world);
-        this.queries = [Script];
+        this.queries = [ScriptComponent];
     }
 
 
@@ -16,8 +16,8 @@ class ScriptSystem extends System {
 
         for (let entity of entities) {
             try {
-                if (entity.getComponent(Script).value) {
-                    entity.getComponent(Script).reload = false;
+                if (entity.getComponent(ScriptComponent).value) {
+                    entity.getComponent(ScriptComponent).reload = false;
                 } else {
                     this.reloadScript(entity)
                 }
@@ -33,10 +33,10 @@ class ScriptSystem extends System {
     async update(tick: number, entities: Entity[]) {
         
         for (let entity of entities) {
-            if (entity.getComponent(Script).reload) {
+            if (entity.getComponent(ScriptComponent).reload) {
                 this.reloadScript(entity);
             } try {
-                let script: any = entity.getComponent(Script).value;
+                let script: any = entity.getComponent(ScriptComponent).value;
               /*   console.log(typeof script) */ 
                 if (script) {
                     switch (typeof script) {
@@ -46,7 +46,7 @@ class ScriptSystem extends System {
                 }
             } catch (e) {
                 console.error(entity, e)
-                entity.getComponent(Script).value = undefined;
+                entity.getComponent(ScriptComponent).value = undefined;
             }
         }
 
@@ -56,16 +56,16 @@ class ScriptSystem extends System {
         let assetManager = this.world.getManager(AssetManager);
 
         // check if script exists
-        if (!assetManager.assets[entity.getComponent(Script).name]) {
-            entity.getComponent(Script).reload = false;
-            return console.warn(`Script "${entity.getComponent(Script).name}" doesn't exist!`, entity)
+        if (!assetManager.assets[entity.getComponent(ScriptComponent).name]) {
+            entity.getComponent(ScriptComponent).reload = false;
+            return console.warn(`Script "${entity.getComponent(ScriptComponent).name}" doesn't exist!`, entity)
 
         }
 
-        let scriptAsset = assetManager.assets[entity.getComponent(Script).name];
+        let scriptAsset = assetManager.assets[entity.getComponent(ScriptComponent).name];
         let script = new Function('entity, world', scriptAsset.value + 'return new Script(entity, world)')(entity, this.world);
-        entity.getComponent(Script).value = script;
-        entity.getComponent(Script).reload = false;
+        entity.getComponent(ScriptComponent).value = script;
+        entity.getComponent(ScriptComponent).reload = false;
     }
 }
 

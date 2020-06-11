@@ -4,8 +4,12 @@ class App {
 
     world: World;
 
+    worlds: World[];
+
     constructor() {
         this.world = new World();
+        this.worlds = [];
+        this.worlds.push(this.world)
     }
 
     start() {
@@ -19,11 +23,3 @@ class App {
 }
 
 export { App };
-
-
-/*
-PhysicsSystem
-CameraSystem
-AudioSystem
-AnimationSystem
-*/

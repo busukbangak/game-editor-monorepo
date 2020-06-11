@@ -10,7 +10,7 @@ enum CameraType {
     Stereo
 }
 
-class Camera implements Component {
+class CameraComponent implements Component {
 
     active: boolean;
 
@@ -43,4 +43,4 @@ class Camera implements Component {
 
 }
 
-export { Camera, CameraType };
+export { CameraComponent, CameraType };

@@ -1,11 +1,11 @@
 
 import { Component } from "./Component";
 
-class Particle implements Component {
+class AnimationComponent implements Component {
 
     constructor() {
     }
 
 }
 
-export { Particle };
+export { AnimationComponent };

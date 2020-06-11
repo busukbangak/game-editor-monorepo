@@ -1,23 +1,23 @@
 import { System } from "./System";
 import { Entity } from "../entities/Entity";
-import { Renderer } from "../components/Renderer";
-import { Scene } from "../components/Scene";
-import { Camera } from "../components/Camera";
+import { RendererComponent } from "../components/RendererComponent";
+import { SceneComponent } from "../components/SceneComponent";
+import { CameraComponent } from "../components/CameraComponent";
 import { World } from "../World";
 
 class RenderSystem extends System {
 
 
-    activeRenderer: Renderer;
+    activeRenderer: RendererComponent;
 
-    activeScene: Scene;
+    activeScene: SceneComponent;
 
-    activeCamera: Camera;
+    activeCamera: CameraComponent;
 
 
     constructor(world: World) {
         super(world);
-        this.queries = [Renderer, Scene, Camera];
+        this.queries = [RendererComponent, SceneComponent, CameraComponent];
     }
 
     initialize(entities: Entity[]) {
@@ -44,21 +44,21 @@ class RenderSystem extends System {
     updateActiveObjects(entities: Entity[]) {
         for (let entity of entities) {
             // set active renderer
-            if (entity.hasComponent(Renderer)) {
-                if (entity.getComponent(Renderer).active) {
-                    this.activeRenderer = entity.getComponent(Renderer);
+            if (entity.hasComponent(RendererComponent)) {
+                if (entity.getComponent(RendererComponent).active) {
+                    this.activeRenderer = entity.getComponent(RendererComponent);
                 }
             }
             // set active scene
-            if (entity.hasComponent(Scene)) {
-                if (entity.getComponent(Scene).active) {
-                    this.activeScene = entity.getComponent(Scene);
+            if (entity.hasComponent(SceneComponent)) {
+                if (entity.getComponent(SceneComponent).active) {
+                    this.activeScene = entity.getComponent(SceneComponent);
                 }
             }
             // set active camera
-            if (entity.hasComponent(Camera)) {
-                if (entity.getComponent(Camera).active) {
-                    this.activeCamera = entity.getComponent(Camera);
+            if (entity.hasComponent(CameraComponent)) {
+                if (entity.getComponent(CameraComponent).active) {
+                    this.activeCamera = entity.getComponent(CameraComponent);
                 }
             }
         }
