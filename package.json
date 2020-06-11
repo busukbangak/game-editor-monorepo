@@ -6,7 +6,7 @@
   "author": "Aliim Wan",
   "license": "MIT",
   "scripts": {
-    "clean": "shx rm -rf dist lib",
+    "clean": "shx rm -rf build lib",
     "prod": "npm run clean && tsc && webpack --mode=development && webpack --mode=production",
     "dev": "npm run clean && webpack-dev-server --inline --progress --mode=development"
   },

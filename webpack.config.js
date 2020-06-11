@@ -2,7 +2,7 @@ const path = require("path");
 
 const PATHS = {
   entryPoint: path.resolve(__dirname, 'src/index.ts'),
-  bundles: path.resolve(__dirname, 'dist'),
+  bundles: path.resolve(__dirname, 'build'),
 }
 
 const config = {
@@ -22,7 +22,7 @@ const config = {
     libraryTarget: 'umd',
     library: 'DOT',
     umdNamedDefine: true,
-    publicPath: '/dist'
+    publicPath: '/build'
   },
   // Add resolve for `tsx` and `ts` files, otherwise Webpack would
   // only look for common JavaScript file extension (.js)
