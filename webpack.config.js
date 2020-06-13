@@ -33,9 +33,7 @@ const config = {
   // Activate source maps for the bundles in order to preserve the original
   // source when the user debugs the application
   devtool: 'source-map',
-  plugins: [
-    new TypedocWebpackPlugin({out: '../docs'}, './src')
-  ],
+  plugins: [],
   module: {
     rules: [
       {
@@ -49,7 +47,7 @@ const config = {
     port: 4200,
     contentBase: path.join(__dirname),
     contentBasePublicPath: '/',
-    watchContentBase: true,
+    watchContentBase: false,
     writeToDisk: true
   }
 }
@@ -65,7 +63,7 @@ module.exports = (env, argv) => {
 
   if (argv.mode === 'production') {
     config.output.filename = '[name].min.js';
-
+    config.plugins.push(new TypedocWebpackPlugin({out: '../docs'}, './src'));
   }
 
   return config;

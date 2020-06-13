@@ -14,11 +14,15 @@ class ModelComponent implements Component {
 
     material: Material | Material[]
 
+    wireframe: boolean;
+
     value: THREE.Mesh;
 
     constructor(options?: Object) {
         this.type = undefined;
-        this.material = new THREE.MeshStandardMaterial({color: 0xf28a3a});
+        
+        this.wireframe = false;
+        this.material = undefined;
         
         for (let i in this) {
             for (let k in options) {
@@ -26,6 +30,14 @@ class ModelComponent implements Component {
                     this[i] = options[k]
                 }
             }
+        }
+
+        if(!this.material) {
+            this.material = new THREE.MeshStandardMaterial({color: parseInt('0x'+Math.floor(Math.random()*16777215).toString(16)), wireframe: this.wireframe});
+        }
+
+        if(this.wireframe) {
+            // TODO: Adjust Material to wireframe
         }
 
         switch (this.type) {

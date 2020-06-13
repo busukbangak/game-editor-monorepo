@@ -1,20 +1,21 @@
 
 import { Component } from "./Component";
+import { Asset } from "../managers/AssetManager"
 
 class ScriptComponent implements Component {
-
-    name: string;
 
     reload: boolean;
 
     enabled: boolean;
 
-    value: string;
+    asset: Asset;
+
+    value: any;
 
     constructor(options?: Object) {
-        this.name = undefined;
-        this.reload = true;
+        this.reload = false;
         this.enabled = true;
+        this.asset = undefined;
         this.value = undefined;
         
         for (let i in this) {
@@ -25,6 +26,7 @@ class ScriptComponent implements Component {
             }
         }
     }
+    
 
 }
 

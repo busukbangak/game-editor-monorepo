@@ -1,12 +1,11 @@
-init();
-async function init() {
+async function start() {
     // create new application
     let app = new DOT.App();
 
     // load assets immediately
     let assetManager = app.world.getManager(DOT.AssetManager);
-    let rotationScript = await assetManager.loadAsset('script-rotation', './assets/RotationScript.js');
-    console.log(rotationScript)
+    let rotationScriptJS = await assetManager.loadAsset('script-rotation-js', './assets/RotationScript.js');
+    let rotationScriptTS = await assetManager.loadAsset('script-rotation-ts', './assets/RotationScript.ts');
 
     // create renderer
     let rendererEntity = new DOT.RendererEntity();
@@ -20,28 +19,25 @@ async function init() {
     let cameraEntity = new DOT.CameraEntity();
     app.world.addEntity(cameraEntity);
 
-    // create model
-    let modelEntity = app.world.createEntity()
-        .addComponent(DOT.TransformComponent)
-        .addComponent(DOT.ModelComponent, {
-            type: DOT.ModelType.Box,
-            material: new THREE.MeshStandardMaterial({ color: 0xf28a3a, wireframe: false })
-        })
-        .addComponent(DOT.ScriptComponent, { value: rotationScript, reload: true})
+    // create box model
+    let boxEntity = app.world.createEntity();
+    boxEntity.addComponent(DOT.TransformComponent);
+    boxEntity.addComponent(DOT.ModelComponent, { type: DOT.ModelType.Box, wireframe: false });
+    boxEntity.addComponent(DOT.ScriptComponent, { asset: rotationScriptJS });
 
-    
+    // create cone model
+    let coneEntity = app.world.createEntity();
+    coneEntity.addComponent(DOT.TransformComponent);
+    coneEntity.addComponent(DOT.ModelComponent, { type: DOT.ModelType.Cone, wireframe: false });
+    coneEntity.addComponent(DOT.ScriptComponent, { asset: rotationScriptTS });
+
     // create light
-    app.world.createEntity()
-        .addComponent(DOT.TransformComponent)
-        .addComponent(DOT.LightComponent)
-        .addComponent(DOT.ScriptComponent, {
-            value: (entity, world) => {
-                /* world.managers[1].fire('TestEvent', { x: 0.01, y: 0.01 }) */
-            }
-        })
-
+    let lightEntity = app.world.createEntity();
+    lightEntity.addComponent(DOT.TransformComponent);
+    lightEntity.addComponent(DOT.LightComponent);
 
     app.start();
 
     console.log(app)
 }
+start();

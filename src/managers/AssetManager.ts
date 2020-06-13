@@ -1,13 +1,19 @@
 
 import * as THREE from "three";
 import { Manager } from "./Manager";
-import { basename } from "path";
+
+interface Asset {
+    name: string;
+    path: string;
+    value: any;
+    tags?: string[];
+}
 
 class AssetManager implements Manager {
 
-    assets: {[key: string]: {value: any, path: string, tags?: string[]}};
+    assets: {[key: string]: Asset};
 
-    queue: {[key: string]: {value: any, path: string, tags?: string[]}};
+    queue: {[key: string]: Asset};
 
     loadingManager: THREE.LoadingManager;
 
@@ -39,6 +45,14 @@ class AssetManager implements Manager {
 
     }
 
+    async addAsset(name: string, path: string, tags?: string[]) {
+
+    }
+
+    async removeAsset(name?: string, path?: string, tags?: string[]) {
+
+    }
+
 
     async loadAsset(name: string, path?: string, tags?: string[]) {
 
@@ -47,18 +61,30 @@ class AssetManager implements Manager {
         }
 
         if(!path) {
-            console.warn(`Asset ${name} not found!`);
-            return;
+            console.warn('Asset not found!');
+            return null;
         }
 
         return new Promise(resolve => this.fileLoader.load(path, resolve))
             .then((res) => {
-                this.assets[name] = {value: res, path: path};
-                return res;
+                this.assets[name] = {name: name, path: path, value: res };
+                return this.assets[name];
             });
     }
 
+    async reloadAsset(name?: string, path?: string, tags?: string[]) {
+        // Get reload asset path
+        let assetPath = this.assets[name].path;
+
+        // Delete old asset from registry
+        delete this.assets[name]
+        
+        // Reload asset
+        let reloadedAsset = await this.loadAsset(name, assetPath);
+
+        return reloadedAsset;
+    }
 
 }
 
-export { AssetManager };
+export { AssetManager, Asset };
