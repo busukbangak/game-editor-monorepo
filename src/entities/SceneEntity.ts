@@ -1,6 +1,7 @@
 import { Entity } from './Entity';
 import { SceneComponent } from '../components/SceneComponent';
 import * as THREE from 'three';
+import { World } from '../World';
 
 class SceneEntity extends Entity {
 

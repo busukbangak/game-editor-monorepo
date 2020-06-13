@@ -1,38 +1,39 @@
 async function start() {
     // create new application
     let app = new DOT.App();
+    let world = app.world;
 
     // load assets immediately
-    let assetManager = app.world.getManager(DOT.AssetManager);
+    let assetManager = world.getManager(DOT.AssetManager);
     let rotationScriptJS = await assetManager.loadAsset('script-rotation-js', './assets/RotationScript.js');
     let rotationScriptTS = await assetManager.loadAsset('script-rotation-ts', './assets/RotationScript.ts');
 
     // create renderer
     let rendererEntity = new DOT.RendererEntity();
-    app.world.addEntity(rendererEntity);
+    world.addEntity(rendererEntity);
 
     // create scene
     let sceneEntity = new DOT.SceneEntity();
-    app.world.addEntity(sceneEntity);
+    world.addEntity(sceneEntity);
 
     // create camera
     let cameraEntity = new DOT.CameraEntity();
-    app.world.addEntity(cameraEntity);
+    world.addEntity(cameraEntity);
 
     // create box model
-    let boxEntity = app.world.createEntity();
+    let boxEntity = world.createEntity();
     boxEntity.addComponent(DOT.TransformComponent);
     boxEntity.addComponent(DOT.ModelComponent, { type: DOT.ModelType.Box, wireframe: false });
     boxEntity.addComponent(DOT.ScriptComponent, { asset: rotationScriptJS });
 
     // create cone model
-    let coneEntity = app.world.createEntity();
+    let coneEntity = world.createEntity();
     coneEntity.addComponent(DOT.TransformComponent);
     coneEntity.addComponent(DOT.ModelComponent, { type: DOT.ModelType.Cone, wireframe: false });
     coneEntity.addComponent(DOT.ScriptComponent, { asset: rotationScriptTS });
 
     // create light
-    let lightEntity = app.world.createEntity();
+    let lightEntity = world.createEntity();
     lightEntity.addComponent(DOT.TransformComponent);
     lightEntity.addComponent(DOT.LightComponent);
 

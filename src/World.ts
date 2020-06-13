@@ -6,11 +6,14 @@ import { RenderSystem } from './systems/RenderSystem';
 import { Manager } from "./managers/Manager";
 import { AssetManager } from "./managers/AssetManager";
 import { EventManager } from "./managers/EventManager";
+import { App } from "./App";
 
 /**
  * World
  */
 class World {
+
+    app: App;
 
     entities: Entity[];
 
@@ -27,7 +30,8 @@ class World {
     enabled: boolean;
     
 
-    constructor() {
+    constructor(app?: App) {
+        this.app = app;
         this.entities = [];
         this.systems = [];
         this.assemblages = [];
@@ -70,12 +74,13 @@ class World {
     }
 
     createEntity() {
-        let entity = new Entity();
+        let entity = new Entity(this);
         this.entities.push(entity)
         return entity;
     }
 
     addEntity(entity: Entity) {
+        entity.world = this;
         this.entities.push(entity)
         return entity;
     }

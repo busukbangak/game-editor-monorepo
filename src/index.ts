@@ -43,11 +43,11 @@ AnimationSystem
 
 SCIRPTSYSTEM
 -> typescript 
--> javascript
+-> javascript (X)
 -> external library (import, exports)
--> script kann entität über this getten
+-> script kann entität über this getten (X)
 -> script kann events feuern über this
--> script ist klasse
+-> script ist klasse (X)
 
 */
 

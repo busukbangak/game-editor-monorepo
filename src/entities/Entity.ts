@@ -1,13 +1,17 @@
 import { nanoid } from 'nanoid';
 import { Component } from '../components/Component';
+import { World } from '../World';
 
 class Entity {
 
     id: string;
 
+    world: World;
+
     components: Component[];
 
-    constructor() {
+    constructor(world?: World) {
+        this.world = world; 
         this.id = nanoid();
         this.components = [];
     }

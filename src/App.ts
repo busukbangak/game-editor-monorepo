@@ -19,7 +19,7 @@ class App {
      * Creates an application
      */
     constructor() {
-        this.world = new World();
+        this.world = new World(this);
         this.worlds = [];
         this.worlds.push(this.world)
     }

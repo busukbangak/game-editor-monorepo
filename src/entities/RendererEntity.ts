@@ -1,5 +1,6 @@
 import { Entity } from './Entity';
 import { RendererComponent } from '../components/RendererComponent';
+import { World } from '../World';
 
 class RendererEntity extends Entity {
     
