@@ -6,6 +6,10 @@ import { RenderSystem } from './systems/RenderSystem';
 import { Manager } from "./managers/Manager";
 import { AssetManager } from "./managers/AssetManager";
 import { EventManager } from "./managers/EventManager";
+import { RendererEntity } from "./entities/RendererEntity";
+import { SceneEntity } from "./entities/SceneEntity";
+import { CameraEntity } from "./entities/CameraEntity";
+import { Component } from "./components/Component";
 
 /**
  * World
@@ -16,7 +20,7 @@ class World {
 
     systems: System[];
 
-    assemblages: Entity[];
+    assemblages: { [name: string]: Component[] };
 
     managers: Manager[];
 
@@ -28,27 +32,33 @@ class World {
     
 
     constructor() {
+        // Default initialization
         this.entities = [];
         this.systems = [];
-        this.assemblages = [];
+        this.assemblages = {};
         this.managers = [];
         this.tick = 0;
         this.initialized = false;
         this.enabled = false;
 
-        this.managers.push(new AssetManager())
-        this.managers.push(new EventManager())
+        // Create default managers
+        this.managers.push(new AssetManager());
+        this.managers.push(new EventManager());
+
+        // Create default assemblages
+        this.createAssemblage('default-renderer', new RendererEntity());
+        this.createAssemblage('default-scene', new SceneEntity());
+        this.createAssemblage('default-camera', new CameraEntity());
+
+        // create default systems
+        this.createSystem(RenderSystem);
+        this.createSystem(ScriptSystem);
+        this.createSystem(TransformSystem);
 
     }
 
     async initialize() {
         
-        // create default systems
-        
-        this.createSystem(RenderSystem);
-        this.createSystem(ScriptSystem);
-        this.createSystem(TransformSystem);
-
         // initialize systems
         for (let system of this.systems) {
             await system.initialize(this.entities.filter((entity) => {
@@ -84,6 +94,8 @@ class World {
     removeEntity(entity: Entity) {
     }
 
+    getEntity(){}
+
 
     createSystem<T extends System>(System: new (...args: any) => T, values?: object) {
         let system = new System(this);
@@ -99,8 +111,32 @@ class World {
         return system;
     }
 
+    addSystem(){}
+
     removeSystem(system: System) {
     }
+
+    getSystem(){}
+
+    createAssemblage(name: string, entity: Entity) {
+        this.assemblages[name] = entity.components;
+    }
+
+    addAssemblage(){}
+
+    removeAssemblage() {
+
+    }
+
+    getAssemblage(){}
+
+    createManager(){}
+    
+    addManager(manager: Manager) {
+        this.managers.push(manager);
+    }
+
+    removeManager(){}
 
     getManager<T extends Manager>(Manager: new (...args: any) => T) {
         for (let manager of this.managers) {
