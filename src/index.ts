@@ -1,5 +1,5 @@
-// Application
-export * from './App';
+// World
+export * from './World';
 
 // Entities
 export * from './entities/Entity';

@@ -1,7 +1,6 @@
 async function start() {
     // create new application
-    let app = new DOT.App();
-    let world = app.world;
+    let world = new DOT.World();
 
     // load assets immediately
     let assetManager = world.getManager(DOT.AssetManager);
@@ -37,8 +36,8 @@ async function start() {
     lightEntity.addComponent(DOT.TransformComponent);
     lightEntity.addComponent(DOT.LightComponent);
 
-    app.start();
+    world.start();
 
-    console.log(app)
+    console.log(world)
 }
 start();

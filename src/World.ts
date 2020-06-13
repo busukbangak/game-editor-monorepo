@@ -6,14 +6,11 @@ import { RenderSystem } from './systems/RenderSystem';
 import { Manager } from "./managers/Manager";
 import { AssetManager } from "./managers/AssetManager";
 import { EventManager } from "./managers/EventManager";
-import { App } from "./App";
 
 /**
  * World
  */
 class World {
-
-    app: App;
 
     entities: Entity[];
 
@@ -30,8 +27,7 @@ class World {
     enabled: boolean;
     
 
-    constructor(app?: App) {
-        this.app = app;
+    constructor() {
         this.entities = [];
         this.systems = [];
         this.assemblages = [];
