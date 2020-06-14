@@ -6,9 +6,6 @@ import { RenderSystem } from './systems/RenderSystem';
 import { Manager } from "./managers/Manager";
 import { AssetManager } from "./managers/AssetManager";
 import { EventManager } from "./managers/EventManager";
-import { RendererEntity } from "./entities/RendererEntity";
-import { SceneEntity } from "./entities/SceneEntity";
-import { CameraEntity } from "./entities/CameraEntity";
 import { Component } from "./components/Component";
 import * as Stats from "stats-js";
 
@@ -46,6 +43,7 @@ class World {
         // Init stats
         this.stats = new Stats();
         document.body.appendChild(this.stats.dom);
+        this.hideStats();
 
         // Create default managers
         this.managers.push(new AssetManager());

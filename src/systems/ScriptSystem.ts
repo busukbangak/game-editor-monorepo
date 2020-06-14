@@ -57,7 +57,7 @@ class ScriptSystem extends System {
                 let script: any = scriptComponent.value;
                 if (script) {
                     switch (typeof script) {
-                        case 'function': script(); break;
+                        case 'function': script(entity); break;
                         case 'object': script.update(); break;
                     }
                 }
@@ -127,11 +127,12 @@ class ScriptSystem extends System {
         let scriptComponent = entity.getComponent(ScriptComponent)
         let scriptAsset = scriptComponent.asset;
 
-        // check if script exists in the asset database
+        console.log(assetManager.assets[scriptAsset.name])
+        /* // check if script exists in the asset database
         if (!assetManager.assets[scriptAsset.name]) {
             scriptComponent.reload = false;
             return console.warn(`Script "${scriptAsset.name}" doesn't exist in the asset database!`, entity)
-        }
+        } */
 
         // Reload script to asset database
         scriptAsset = await assetManager.reloadAsset(scriptAsset.name);

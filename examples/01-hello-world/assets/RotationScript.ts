@@ -18,6 +18,6 @@ class RotationScript extends DOT.Entity {
         let transform = this.getComponent(DOT.TransformComponent).value;
         transform.rotation.x += this.x;
         transform.rotation.y += this.y;
-        transform.scale.setX(0.5);
+        transform.position.setY(-1);
     }
 }

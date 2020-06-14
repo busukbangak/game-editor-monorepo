@@ -38,8 +38,13 @@ async function start() {
     lightEntity.addComponent(DOT.TransformComponent);
     lightEntity.addComponent(DOT.LightComponent);
 
+    // Start world
     world.start();
 
+    // Show performance
+    world.showStats();
+
+    // Log world
     console.log(world)
 }
 
