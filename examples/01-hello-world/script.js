@@ -1,3 +1,5 @@
+start();
+
 async function start() {
     // create new application
     let world = new DOT.World();
@@ -40,4 +42,4 @@ async function start() {
 
     console.log(world)
 }
-start();
+

@@ -10,6 +10,7 @@ import { RendererEntity } from "./entities/RendererEntity";
 import { SceneEntity } from "./entities/SceneEntity";
 import { CameraEntity } from "./entities/CameraEntity";
 import { Component } from "./components/Component";
+import * as Stats from "stats-js";
 
 /**
  * World
@@ -26,10 +27,11 @@ class World {
 
     tick: number;
 
+    stats: any;
+
     initialized: boolean;
 
     enabled: boolean;
-    
 
     constructor() {
         // Default initialization
@@ -41,14 +43,18 @@ class World {
         this.initialized = false;
         this.enabled = false;
 
+        // Init stats
+        this.stats = new Stats();
+        document.body.appendChild(this.stats.dom);
+
         // Create default managers
         this.managers.push(new AssetManager());
         this.managers.push(new EventManager());
 
         // Create default assemblages
-        this.createAssemblage('default-renderer', new RendererEntity());
+        /* this.createAssemblage('default-renderer', new RendererEntity());
         this.createAssemblage('default-scene', new SceneEntity());
-        this.createAssemblage('default-camera', new CameraEntity());
+        this.createAssemblage('default-camera', new CameraEntity()); */
 
         // create default systems
         this.createSystem(RenderSystem);
@@ -58,7 +64,7 @@ class World {
     }
 
     async initialize() {
-        
+
         // initialize systems
         for (let system of this.systems) {
             await system.initialize(this.entities.filter((entity) => {
@@ -94,7 +100,7 @@ class World {
     removeEntity(entity: Entity) {
     }
 
-    getEntity(){}
+    getEntity() { }
 
 
     createSystem<T extends System>(System: new (...args: any) => T, values?: object) {
@@ -111,32 +117,31 @@ class World {
         return system;
     }
 
-    addSystem(){}
+    addSystem() { }
 
     removeSystem(system: System) {
     }
 
-    getSystem(){}
+    getSystem() { }
 
     createAssemblage(name: string, entity: Entity) {
-        this.assemblages[name] = entity.components;
     }
 
-    addAssemblage(){}
+    addAssemblage() { }
 
-    removeAssemblage() {
+    removeAssemblage() { }
 
+    getAssemblage(name: string) {
+        return this.assemblages[name];
     }
 
-    getAssemblage(){}
+    createManager() { }
 
-    createManager(){}
-    
     addManager(manager: Manager) {
         this.managers.push(manager);
     }
 
-    removeManager(){}
+    removeManager() { }
 
     getManager<T extends Manager>(Manager: new (...args: any) => T) {
         for (let manager of this.managers) {
@@ -162,7 +167,17 @@ class World {
         this.enabled = false;
     }
 
+    showStats() {
+        this.stats.showPanel(0);
+    }
+
+    hideStats() {
+        this.stats.showPanel(3);
+    }
+
     update(tick: number) {
+        this.stats.begin();
+
         if (this.enabled) {
             for (let system of this.systems) {
                 if (system.enabled) {
@@ -175,9 +190,8 @@ class World {
             }
         }
 
-        this.tick = requestAnimationFrame(() => {
-            this.update(this.tick);
-        });
+        this.stats.end();
+        this.tick = requestAnimationFrame(() => this.update(this.tick));
     }
 }
 

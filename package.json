@@ -12,9 +12,11 @@
   },
   "dependencies": {
     "nanoid": "x",
+    "stats-js": "^1.0.1",
     "three": "x"
   },
   "devDependencies": {
+    "@types/stats.js": "^0.17.0",
     "shx": "^0.3.2",
     "ts-loader": "^7.0.5",
     "typedoc": "^0.17.7",
