@@ -11,7 +11,6 @@
     "dev": "npm run clean && webpack-dev-server --inline --progress --mode=development"
   },
   "dependencies": {
-    "nanoid": "x",
     "stats-js": "^1.0.1",
     "three": "x"
   },

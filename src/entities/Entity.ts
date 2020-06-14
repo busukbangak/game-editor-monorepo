@@ -1,18 +1,21 @@
-import { nanoid } from 'nanoid';
 import { Component } from '../components/Component';
 import { World } from '../World';
+import { MathUtils } from 'three';
 
 class Entity {
 
     id: string;
+
+    tags: string[];
 
     world: World;
 
     components: Component[];
 
     constructor(world?: World) {
-        this.world = world; 
-        this.id = nanoid();
+        this.id = MathUtils.generateUUID();
+        this.tags = [];
+        this.world = world;
         this.components = [];
     }
 
@@ -51,7 +54,7 @@ class Entity {
         }
         return undefined;
     }
-    
+
 }
 
 export { Entity };
