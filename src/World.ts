@@ -58,7 +58,7 @@ class World {
         this.createSystem(RenderSystem);
         this.createSystem(ScriptSystem);
         this.createSystem(TransformSystem);
-
+        
     }
 
     async initialize() {
@@ -84,13 +84,12 @@ class World {
     }
 
     createEntity() {
-        let entity = new Entity(this);
+        let entity = new Entity();
         this.entities.push(entity)
         return entity;
     }
 
     addEntity(entity: Entity) {
-        entity.world = this;
         this.entities.push(entity)
         return entity;
     }

@@ -1,5 +1,4 @@
 import { Component } from '../components/Component';
-import { World } from '../World';
 import { MathUtils } from 'three';
 
 class Entity {
@@ -8,14 +7,11 @@ class Entity {
 
     tags: string[];
 
-    world: World;
-
     components: Component[];
 
-    constructor(world?: World) {
+    constructor() {
         this.id = MathUtils.generateUUID();
         this.tags = [];
-        this.world = world;
         this.components = [];
     }
 
