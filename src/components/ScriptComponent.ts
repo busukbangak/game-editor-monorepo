@@ -30,4 +30,6 @@ class ScriptComponent implements Component {
     }
 }
 
+
+
 export { ScriptComponent };
