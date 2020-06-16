@@ -1,6 +1,6 @@
 import { System } from './System';
 import { Entity } from '../entities/Entity';
-import { ScriptComponent } from '../components/ScriptComponent';
+import { ScriptComponent, Script } from '../components/ScriptComponent';
 import { World } from '../World';
 import { AssetManager, Asset } from '../managers/AssetManager';
 import { transpile, ModuleKind, ScriptTarget } from 'typescript';
@@ -116,10 +116,7 @@ class ScriptSystem extends System {
 
         // Pass entity data to Script
         if (scriptComponent.value) {
-            (scriptComponent.value as Entity).id = `script:${entity.id}`;
-            (scriptComponent.value as Entity).tags = entity.tags;
-            (scriptComponent.value as Entity).world = entity.world;
-            (scriptComponent.value as Entity).components = entity.components;
+            (scriptComponent.value as Script).entity = entity;
         }
 
         // Start initialization method of script

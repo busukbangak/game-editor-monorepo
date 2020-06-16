@@ -19,7 +19,7 @@ class ScriptComponent implements Component {
         this.enabled = true;
         this.asset = undefined;
         this.value = undefined;
-        
+
         for (let i in this) {
             for (let k in options) {
                 if (i === k) {
@@ -30,6 +30,10 @@ class ScriptComponent implements Component {
     }
 }
 
+class Script {
 
+    entity: Entity;
 
-export { ScriptComponent };
+}
+
+export { ScriptComponent, Script };
