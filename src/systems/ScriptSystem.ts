@@ -20,7 +20,7 @@ class ScriptSystem extends System {
             try {
                 let scriptComponent = entity.getComponent(ScriptComponent);
 
-                // If scriptComponent doesnt contain a script asset or contains an initialized script, then skip
+                // If scriptComponent doesnt contain a script asset then skip
                 if (!scriptComponent.asset || scriptComponent.value) {
                     continue;
                 }
@@ -52,15 +52,15 @@ class ScriptSystem extends System {
                 await this.reloadScript(entity);
             }
 
+            // If Skip is empty, then skip
+            if (!scriptComponent.value) {
+                continue;
+            }
+
             // Start script execution, depending on script type
             try {
                 let script: any = scriptComponent.value;
-                if (script) {
-                    switch (typeof script) {
-                        case 'function': script(entity); break;
-                        case 'object': script.update(); break;
-                    }
-                }
+                if (script) script.update();
             } catch (e) {
                 console.error(entity, e)
                 scriptComponent.value = undefined;
@@ -109,14 +109,24 @@ class ScriptSystem extends System {
                 scriptComponent.value = new Function(``, script + `return new ${ScriptClass}()`)();
                 break;
             } catch (e) {
-                // TODO CATCH ERRORS
-               /*  console.error(e) */
+                // TODO: CATCH ERRORS CORRECTLY
+                /*  console.error(e) */
             }
         }
 
-        // Pass entity components to Script
+        // Pass entity data to Script
         if (scriptComponent.value) {
+            (scriptComponent.value as Entity).id = `script:${entity.id}`;
+            (scriptComponent.value as Entity).tags = entity.tags;
+            (scriptComponent.value as Entity).world = entity.world;
             (scriptComponent.value as Entity).components = entity.components;
+        }
+
+        // Start initialization method of script
+        try {
+            scriptComponent.value.start();
+        } catch (e) {
+            console.log(e);
         }
 
     }
@@ -127,7 +137,6 @@ class ScriptSystem extends System {
         let scriptComponent = entity.getComponent(ScriptComponent)
         let scriptAsset = scriptComponent.asset;
 
-        console.log(assetManager.assets[scriptAsset.name])
         /* // check if script exists in the asset database
         if (!assetManager.assets[scriptAsset.name]) {
             scriptComponent.reload = false;

@@ -3,10 +3,20 @@
  */
 class RotationScript extends DOT.Entity {
 
-    constructor() {
-        super();
-        this.x = 0.1;
-        this.y = 0.1;
+    x;
+
+    y;
+
+    start() {
+        this.x = 0.01;
+        this.y = 0.01;
+
+        // TODO: WATCH FOR EVENTS WITH SAME NAME; DELETING ONE REMOVES IT ON ALL LISTNERS
+        let testEvent = (event) => {
+            console.log(event.data)
+        }
+
+        DOT.EventManager.on('test', testEvent);
     }
 
     update() {

@@ -1,6 +1,8 @@
 
 import { Component } from "./Component";
 import { Asset } from "../managers/AssetManager"
+import { Entity } from "../entities/Entity";
+import { World } from "../World";
 
 class ScriptComponent implements Component {
 
@@ -26,8 +28,6 @@ class ScriptComponent implements Component {
             }
         }
     }
-    
-
 }
 
 export { ScriptComponent };
