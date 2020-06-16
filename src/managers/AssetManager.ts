@@ -11,13 +11,13 @@ interface Asset {
 
 class AssetManager implements Manager {
 
-    static assets: {[key: string]: Asset};
+    public static assets: {[key: string]: Asset};
 
-    static queue: {[key: string]: Asset};
+    public static queue: {[key: string]: Asset};
 
-    static fileLoader: THREE.FileLoader;
+    private static fileLoader: THREE.FileLoader;
 
-    static loadingManager: THREE.LoadingManager;
+    private static loadingManager: THREE.LoadingManager;
 
     constructor() {
         AssetManager.assets = {};
