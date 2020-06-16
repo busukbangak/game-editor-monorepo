@@ -1,3 +1,4 @@
+
 start();
 
 async function start() {
@@ -5,9 +6,8 @@ async function start() {
     let world = new DOT.World();
 
     // load assets immediately
-    let assetManager = world.getManager(DOT.AssetManager);
-    let rotationScriptJS = await assetManager.loadAsset('script-rotation-js', './assets/RotationScript.js');
-    let rotationScriptTS = await assetManager.loadAsset('script-rotation-ts', './assets/RotationScript.ts');
+    let rotationScriptJS = await DOT.AssetManager.loadAsset('script-rotation-js', './assets/RotationScript.js');
+    let rotationScriptTS = await DOT.AssetManager.loadAsset('script-rotation-ts', './assets/RotationScript.ts');
 
     // create renderer
     let rendererEntity = new DOT.RendererEntity();

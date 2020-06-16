@@ -13,7 +13,6 @@ class ScriptSystem extends System {
         this.queries = [ScriptComponent];
     }
 
-
     async initialize(entities: Entity[]) {
 
         for (let entity of entities) {
@@ -130,7 +129,6 @@ class ScriptSystem extends System {
 
     async reloadScript(entity: Entity) {
 
-        let assetManager = this.world.getManager(AssetManager);
         let scriptComponent = entity.getComponent(ScriptComponent)
         let scriptAsset = scriptComponent.asset;
 
@@ -141,7 +139,7 @@ class ScriptSystem extends System {
         } */
 
         // Reload script to asset database
-        scriptAsset = await assetManager.reloadAsset(scriptAsset.name);
+        scriptAsset = await AssetManager.reloadAsset(scriptAsset.name);
         // Overwrite old scriptAsset with updated scriptAsset
         scriptComponent.asset = scriptAsset;
         // Initialize reloaded script on entity

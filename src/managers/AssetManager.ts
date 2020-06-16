@@ -11,33 +11,33 @@ interface Asset {
 
 class AssetManager implements Manager {
 
-    assets: {[key: string]: Asset};
+    static assets: {[key: string]: Asset};
 
-    queue: {[key: string]: Asset};
+    static queue: {[key: string]: Asset};
 
-    loadingManager: THREE.LoadingManager;
+    static fileLoader: THREE.FileLoader;
 
-    fileLoader: THREE.FileLoader;
+    static loadingManager: THREE.LoadingManager;
 
     constructor() {
-        this.assets = {};
-        this.queue = {};
-        this.loadingManager = new THREE.LoadingManager();
-        this.fileLoader = new THREE.FileLoader(this.loadingManager);
+        AssetManager.assets = {};
+        AssetManager.queue = {};
+        AssetManager.loadingManager = new THREE.LoadingManager();
+        AssetManager.fileLoader = new THREE.FileLoader(AssetManager.loadingManager);
 
-        this.loadingManager.onLoad = function () {/* 
+        AssetManager.loadingManager.onLoad = function () {/* 
             console.log('Loading Assets complete!'); */
 
         };
 
 
-        this.loadingManager.onProgress = function (url, itemsLoaded, itemsTotal) {
+        AssetManager.loadingManager.onProgress = function (url, itemsLoaded, itemsTotal) {
 /* 
             console.log('Loading file: ' + basename(url) + '.\nLoaded ' + itemsLoaded + ' of ' + itemsTotal + ' files.'); */
 
         };
 
-        this.loadingManager.onError = function (url) {
+        AssetManager.loadingManager.onError = function (url) {
 
             console.warn('There was an error loading ' + url);
 
@@ -45,16 +45,16 @@ class AssetManager implements Manager {
 
     }
 
-    async addAsset(name: string, path: string, tags?: string[]) {
+    static async addAsset(name: string, path: string, tags?: string[]) {
 
     }
 
-    async removeAsset(name?: string, path?: string, tags?: string[]) {
+    static async removeAsset(name?: string, path?: string, tags?: string[]) {
 
     }
 
 
-    async loadAsset(name: string, path?: string, tags?: string[]) {
+    static async loadAsset(name: string, path?: string, tags?: string[]) {
 
         if(this.assets[name]) {
             return this.assets[name]
@@ -72,7 +72,7 @@ class AssetManager implements Manager {
             });
     }
 
-    async reloadAsset(name?: string, path?: string, tags?: string[]) {
+    static async reloadAsset(name?: string, path?: string, tags?: string[]) {
         // Get reload asset path
         let assetPath = this.assets[name].path;
 
