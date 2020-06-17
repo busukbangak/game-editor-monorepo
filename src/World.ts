@@ -8,6 +8,7 @@ import { AssetManager } from "./managers/AssetManager";
 import { EventManager } from "./managers/EventManager";
 import { Component } from "./components/Component";
 import * as Stats from "stats-js";
+import { StatisticManager } from "./managers/StatisticManager";
 
 /**
  * World
@@ -24,8 +25,6 @@ class World {
 
     tick: number;
 
-    stats: any;
-
     initialized: boolean;
 
     enabled: boolean;
@@ -40,14 +39,10 @@ class World {
         this.initialized = false;
         this.enabled = false;
 
-        // Init stats
-        this.stats = new Stats();
-        document.body.appendChild(this.stats.dom);
-        this.hideStats();
-
         // Create default managers
         this.managers.push(new AssetManager());
         this.managers.push(new EventManager());
+        this.managers.push(new StatisticManager());
 
         // Create default assemblages
         /* this.createAssemblage('default-renderer', new RendererEntity());
@@ -164,16 +159,10 @@ class World {
         this.enabled = false;
     }
 
-    showStats() {
-        this.stats.showPanel(0);
-    }
-
-    hideStats() {
-        this.stats.showPanel(3);
-    }
+   
 
     update(tick: number) {
-        this.stats.begin();
+        StatisticManager.beginMonitoring();
 
         if (this.enabled) {
             for (let system of this.systems) {
@@ -187,7 +176,7 @@ class World {
             }
         }
 
-        this.stats.end();
+        StatisticManager.endMonitoring();
         this.tick = requestAnimationFrame(() => this.update(this.tick));
     }
 }

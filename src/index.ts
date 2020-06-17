@@ -29,6 +29,7 @@ export * from './systems/ScriptSystem';
 // Managers
 export * from './managers/AssetManager';
 export * from './managers/EventManager';
+export * from './managers/StatisticManager';
 
 /*TODO:
 Assetmanager,

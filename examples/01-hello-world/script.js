@@ -1,4 +1,3 @@
-
 start();
 
 async function start() {
@@ -42,9 +41,8 @@ async function start() {
     world.start();
 
     // Show performance
-    world.showStats();
+    DOT.StatisticManager.showStats();
 
     // Log world
     console.log(world)
 }
-
