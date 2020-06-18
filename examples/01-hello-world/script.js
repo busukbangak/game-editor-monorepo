@@ -21,19 +21,19 @@ async function start() {
     world.addEntity(cameraEntity);
 
     // create box model
-    let boxEntity = world.createEntity();
+    let boxEntity = world.addEntity();
     boxEntity.addComponent(DOT.TransformComponent);
     boxEntity.addComponent(DOT.ModelComponent, { type: DOT.ModelType.Box, wireframe: false });
     boxEntity.addComponent(DOT.ScriptComponent, { asset: rotationScriptJS });
 
     // create cone model
-    let coneEntity = world.createEntity();
+    let coneEntity = world.addEntity();
     coneEntity.addComponent(DOT.TransformComponent);
     coneEntity.addComponent(DOT.ModelComponent, { type: DOT.ModelType.Cone, wireframe: false });
     coneEntity.addComponent(DOT.ScriptComponent, { asset: rotationScriptTS });
 
     // create light
-    let lightEntity = world.createEntity();
+    let lightEntity = world.addEntity();
     lightEntity.addComponent(DOT.TransformComponent);
     lightEntity.addComponent(DOT.LightComponent);
 

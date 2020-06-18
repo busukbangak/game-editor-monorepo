@@ -19,8 +19,6 @@ class World {
 
     systems: System[];
 
-    assemblages: { [name: string]: Component[] };
-
     managers: Manager[];
 
     tick: number;
@@ -33,26 +31,20 @@ class World {
         // Default initialization
         this.entities = [];
         this.systems = [];
-        this.assemblages = {};
         this.managers = [];
         this.tick = 0;
         this.initialized = false;
         this.enabled = false;
 
         // Create default managers
-        this.managers.push(new AssetManager());
-        this.managers.push(new EventManager());
-        this.managers.push(new StatisticManager());
-
-        // Create default assemblages
-        /* this.createAssemblage('default-renderer', new RendererEntity());
-        this.createAssemblage('default-scene', new SceneEntity());
-        this.createAssemblage('default-camera', new CameraEntity()); */
+        this.addManager(AssetManager);
+        this.addManager(EventManager);
+        this.addManager(StatisticManager);
 
         // create default systems
-        this.createSystem(RenderSystem);
-        this.createSystem(ScriptSystem);
-        this.createSystem(TransformSystem);
+        this.addSystem(RenderSystem);
+        this.addSystem(ScriptSystem);
+        this.addSystem(TransformSystem);
         
     }
 
@@ -78,13 +70,8 @@ class World {
 
     }
 
-    createEntity() {
-        let entity = new Entity();
-        this.entities.push(entity)
-        return entity;
-    }
-
-    addEntity(entity: Entity) {
+    addEntity(entity?: Entity) {
+        if(!entity) entity = new Entity();
         this.entities.push(entity)
         return entity;
     }
@@ -92,10 +79,7 @@ class World {
     removeEntity(entity: Entity) {
     }
 
-    getEntity() { }
-
-
-    createSystem<T extends System>(System: new (...args: any) => T, values?: object) {
+    addSystem<T extends System>(System: new (...args: any) => T, values?: object) {
         let system = new System(this);
 
         for (let i in system) {
@@ -109,39 +93,25 @@ class World {
         return system;
     }
 
-    addSystem() { }
-
     removeSystem(system: System) {
     }
 
-    getSystem() { }
+    addManager<T extends Manager>(Manager: new (...args: any) => T, values?: object) {
+        let manager = new Manager();
 
-    createAssemblage(name: string, entity: Entity) {
-    }
-
-    addAssemblage() { }
-
-    removeAssemblage() { }
-
-    getAssemblage(name: string) {
-        return this.assemblages[name];
-    }
-
-    createManager() { }
-
-    addManager(manager: Manager) {
-        this.managers.push(manager);
-    }
-
-    removeManager() { }
-
-    getManager<T extends Manager>(Manager: new (...args: any) => T) {
-        for (let manager of this.managers) {
-            if (manager instanceof Manager) {
-                return manager;
+        for (let i in manager) {
+            for (let k in values) {
+                if (i === k) {
+                    manager[i] = values[k];
+                }
             }
         }
-        return undefined;
+        this.managers.push(manager);
+        return manager;
+    }
+
+    removeManager() { 
+        
     }
 
     start() {
