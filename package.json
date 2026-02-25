@@ -1,0 +1,21 @@
+{
+  "name": "game-editor-monorepo",
+  "version": "1.0.0",
+  "description": "Monorepo for game editor and engine",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "start:editor": "npm run start --workspace=game-editor",
+    "start:engine": "npm run dev --workspace=game-engine",
+    "build:editor": "npm run build --workspace=game-editor",
+    "build:engine": "npm run prod --workspace=game-engine",
+    "build:all": "npm run build:engine && npm run build:editor"
+  },
+  "devDependencies": {},
+  "engines": {
+    "node": ">=14.0.0",
+    "npm": ">=7.0.0"
+  }
+}
