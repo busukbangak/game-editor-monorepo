@@ -22,7 +22,9 @@
                         "styles": [
                             "src/styles.scss"
                         ],
-                        "scripts": [],
+                        "scripts": [
+                            "src/app/core/engine/build/dot.js"
+                        ],
                         "customWebpackConfig": {
                             "path": "./angular.webpack.js"
                         }

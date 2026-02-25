@@ -9,6 +9,11 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "target": "es5",
+    "baseUrl": ".",
+    "paths": {
+      "@awanali/dot-engine": ["../game-engine/src"],
+      "@awanali/dot-engine/*": ["../game-engine/src/*"]
+    },
     "typeRoots": [
       "node_modules/@types"
     ],
@@ -21,7 +26,7 @@
   },
   "include": [
     "main.ts",
-    "src/**/*", "src/app/core/engine/.engine/Application.ts"
+    "src/**/*"
   ],
   "exclude": [
     "node_modules"

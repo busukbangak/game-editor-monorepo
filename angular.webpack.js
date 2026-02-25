@@ -20,5 +20,10 @@ module.exports = (config, options) => {
         }
     }
 
+    // Add path mapping for the local game engine
+    config.resolve = config.resolve || {};
+    config.resolve.alias = config.resolve.alias || {};
+    config.resolve.alias['@awanali/dot-engine'] = require('path').resolve(__dirname, '../game-engine/src');
+
     return config;
 }

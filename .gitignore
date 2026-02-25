@@ -4,6 +4,9 @@
 /dist
 /tmp
 /out-tsc
+/src/app/core/engine/build
+/src/app/core/engine/docs
+/release
 # Only exists if Bazel was run
 /bazel-out
 

@@ -1,4 +1,3 @@
-
 import { Injectable } from '@angular/core';
 
 import * as THREE from 'three';
@@ -20,21 +19,20 @@ export class EngineService {
     this.app = new DOT.Application();
 
     // load assets immediately
-    /* await this.app.world.getManager(AssetManager).loadAsset('file:///Users/user/Desktop/desktop-game-editor/TestScript2.js');
-    await this.app.world.getManager(AssetManager).loadAsset('file:///Users/user/Desktop/desktop-game-editor/TestScript.js', 'rotate'); */
+    let testScript = await DOT.AssetManager.loadAsset('testScript', '/app/assets/TestScript.js');
 
     // create renderer
-    let renderer = this.app.world.createEntity()
+    let renderer = this.app.world.addEntity()
       .addComponent(DOT.Renderer, { active: true, canvas: canvas, antialias: true, alpha: true })
       .getComponent(DOT.Renderer).value
 
     // create scene and get the component
-    let sceneComponent = this.app.world.createEntity()
+    let sceneComponent = this.app.world.addEntity()
       .addComponent(DOT.Scene, { active: true, background: new THREE.Color(0x959595) })
       .getComponent(DOT.Scene)
 
     // create camera
-    let cameraEntity = this.app.world.createEntity()
+    let cameraEntity = this.app.world.addEntity()
       .addComponent(DOT.Transform, { parent: sceneComponent })
       .addComponent(DOT.Camera, { active: true, type: DOT.CameraType.Perspective })
 
@@ -48,16 +46,26 @@ export class EngineService {
     })
 
     // create model
-    let modelEntity = this.app.world.createEntity()
+    let modelEntityBox = this.app.world.addEntity()
       .addComponent(DOT.Transform, { parent: sceneComponent })
-      .addComponent(DOT.Model, { type: DOT.ModelType.Box, material: new THREE.MeshStandardMaterial({ color: 0xf28a3a, wireframe: false }) })
+      .addComponent(DOT.Model, { type: DOT.ModelType.Box, material: new THREE.MeshStandardMaterial({ color: 0xf28a3a, wireframe: true }) })
+      .addComponent(DOT.Script, { asset: testScript, enabled: true })
 
-    modelEntity.addComponent(DOT.Script, {
-      value: new TransformScript(cameraEntity.getComponent(DOT.Camera).value, renderer.domElement, sceneComponent.value, cameraEntity.getComponent(DOT.Script).value, modelEntity.getComponent(DOT.Model).value)
+    let modelEntityCone = this.app.world.addEntity()
+      .addComponent(DOT.Transform, { parent: sceneComponent })
+      .addComponent(DOT.Model, { type: DOT.ModelType.Cone, material: new THREE.MeshStandardMaterial({ color: 0x2a8af2, wireframe: false }) })
+    
+    // set cone position
+    modelEntityCone.getComponent(DOT.Transform)
+      .value.position.set(2, 0, 0);
+    
+    modelEntityCone.addComponent(DOT.Script, {
+      value: new TransformScript(cameraEntity.getComponent(DOT.Camera).value, renderer.domElement, sceneComponent.value, cameraEntity.getComponent(DOT.Script).value, modelEntityCone.getComponent(DOT.Model).value),
+      enabled: false // TODO: BUG - Doesnt disable script
     })
 
     // create light
-    this.app.world.createEntity()
+    this.app.world.addEntity()
       .addComponent(DOT.Transform, { parent: sceneComponent })
       .addComponent(DOT.Light)
 
