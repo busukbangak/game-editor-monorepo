@@ -1,6 +1,6 @@
 # Game Editor Monorepo
 
-This is a monorepo containing the game editor and game engine packages.
+An experimental project for exploring ECS architecture and playing around with Three.js. This monorepo contains a game editor and game engine built from scratch as a learning exercise.
 
 ## Structure
 

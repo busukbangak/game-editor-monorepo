@@ -1,7 +1,7 @@
 {
   "name": "game-editor-monorepo",
   "version": "1.0.0",
-  "description": "Monorepo for game editor and engine",
+  "description": "Monorepo for an experimental ECS-based game engine with a custom visual editor for building 3D games.",
   "private": true,
   "workspaces": [
     "packages/*"
