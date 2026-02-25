@@ -24,3 +24,7 @@ Thumbs.db
 # Environment
 .env
 .env.local
+
+# Old separate repositories (now in packages/)
+/game-editor/
+/game-engine/

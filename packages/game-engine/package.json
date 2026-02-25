@@ -1,9 +1,8 @@
 {
-    "name": "@awanali/dot-engine",
+    "name": "game-engine",
     "version": "0.0.18",
     "description": "ecs game engine",
     "main": "./src/index.ts",
-    "private": true,
     "author": "Aliim Wan",
     "license": "MIT",
     "scripts": {
