@@ -1,0 +1,77 @@
+.windows-titlebar-container {
+    -webkit-app-region: drag;
+    width: 100%;
+    height: 30px;
+    display: flex;
+    justify-content: space-between;
+    .window-controls-container {
+        display: flex;
+        align-items: center;
+    }
+    .content-container {}
+    .menu-container {
+        display: flex;
+        align-items: center;
+        &:hover {
+            background: slategray;
+        }
+        .menu-button {
+            -webkit-app-region: no-drag;
+            margin: 0 6px 0 6px;
+            display: flex;
+            svg {
+                width: 18px;
+                height: 18px;
+                fill: lightgray;
+            }
+        }
+    }
+}
+
+.close-window {
+    -webkit-app-region: no-drag;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    padding: 0 10px 0 10px;
+    &:hover {
+        background: #ff3f37;
+    }
+    svg {
+        fill: lightgray;
+        width: 20px;
+        height: 20px;
+    }
+}
+
+.minimize-window {
+    -webkit-app-region: no-drag;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    padding: 0 10px 0 10px;
+    &:hover {
+        background: slategray;
+    }
+    svg {
+        fill: lightgray;
+        width: 20px;
+        height: 20px;
+    }
+}
+
+.min-max-window {
+    -webkit-app-region: no-drag;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    padding: 0 10px 0 10px;
+    &:hover {
+        background: slategray;
+    }
+    svg {
+        fill: lightgray;
+        width: 20px;
+        height: 20px;
+    }
+}

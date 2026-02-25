@@ -1,0 +1,4 @@
+<div class="titlebar-container">
+    <app-mac-titlebar *ngIf="platform === 'darwin'"></app-mac-titlebar>
+    <app-windows-titlebar *ngIf="platform !== 'darwin'"></app-windows-titlebar>
+</div>
