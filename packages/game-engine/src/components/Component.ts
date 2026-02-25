@@ -1,0 +1,4 @@
+interface Component  {}
+
+export { Component };
+  
