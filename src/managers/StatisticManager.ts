@@ -1,15 +1,20 @@
 import { Manager } from './Manager'
 import * as Stats from "stats-js";
 
-class StatisticManager extends Stats implements Manager {
+class StatisticManager implements Manager {
 
+    private static initialized = false;
     private static statisticHandler: Stats;
 
     constructor() {
-        super();
+        if (StatisticManager.initialized) {
+            return;
+        }
+        
         StatisticManager.statisticHandler = new Stats();
         document.body.appendChild(StatisticManager.statisticHandler.dom);
         StatisticManager.hideStats();
+        StatisticManager.initialized = true;
     }
 
     public static showStats() {

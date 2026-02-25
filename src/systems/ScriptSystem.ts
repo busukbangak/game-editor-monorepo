@@ -5,6 +5,7 @@ import { World } from '../World';
 import { AssetManager, Asset } from '../managers/AssetManager';
 import { transpile, ModuleKind, ScriptTarget } from 'typescript';
 import { extname } from 'path';
+import * as DOT from '../index';
 
 class ScriptSystem extends System {
 
@@ -79,17 +80,18 @@ class ScriptSystem extends System {
         // Get Script
         let script: string = scriptAsset.value;
 
-        // Prepare typescript scripts, by removing import statements and transpiling it to javascript
-        // TODO: Dont remove import words inside of code or somehow support packages
-        if (scriptLanguage.includes('ts')) {
-            const regex = /import .*/g;
-            let match;
-            while ((match = regex.exec(script)) !== null) {
-                if (match.index === regex.lastIndex) {
-                    regex.lastIndex++;
-                }
-                script = script.replace(match, '')
+        // Remove import statements since DOT is injected into the script scope
+        const importRegex = /import .*/g;
+        let importMatch;
+        while ((importMatch = importRegex.exec(script)) !== null) {
+            if (importMatch.index === importRegex.lastIndex) {
+                importRegex.lastIndex++;
             }
+            script = script.replace(importMatch[0], '')
+        }
+
+        // Transpile TypeScript scripts to JavaScript
+        if (scriptLanguage.includes('ts')) {
             script = await transpile(script, { target: ScriptTarget.ES2020 })
         }
 
@@ -104,12 +106,12 @@ class ScriptSystem extends System {
 
             let ScriptClass = match[1];
             try {
-                let parameters = [];
-                scriptComponent.value = new Function(``, script + `return new ${ScriptClass}()`)();
+                // Make DOT available in script scope by passing it as a parameter
+                scriptComponent.value = new Function('DOT', `return (function() { ${script}; return new ${ScriptClass}(); })()`)(DOT);
                 break;
             } catch (e) {
                 // TODO: CATCH ERRORS CORRECTLY
-                /*  console.error(e) */
+                console.error('Error initializing script:', e)
             }
         }
 
@@ -119,10 +121,12 @@ class ScriptSystem extends System {
         }
 
         // Start initialization method of script
-        try {
-            scriptComponent.value.start();
-        } catch (e) {
-            console.log(e);
+        if (scriptComponent.value && scriptComponent.value.start) {
+            try {
+                scriptComponent.value.start();
+            } catch (e) {
+                console.error('Error in script start():', e);
+            }
         }
 
     }
@@ -133,7 +137,7 @@ class ScriptSystem extends System {
         let scriptAsset = scriptComponent.asset;
 
         /* // check if script exists in the asset database
-        if (!assetManager.assets[scriptAsset.name]) {
+        if (!AssetManager.assets[scriptAsset.name]) {
             scriptComponent.reload = false;
             return console.warn(`Script "${scriptAsset.name}" doesn't exist in the asset database!`, entity)
         } */

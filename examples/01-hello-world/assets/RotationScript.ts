@@ -1,17 +1,16 @@
 import * as DOT from '../../../lib/index';
-import { TransformComponent } from '../../../lib/index';
+import { Script } from '../../../lib/components/ScriptComponent';
 
 /**
  * This class is typescript
  */
-class RotationScript extends DOT.Script {
+class RotationScript extends Script {
 
     x: number = 0.01;
     y: number = 0.01;
 
     start() {
-        DOT.EventManager.fire('test', 'Hello world!');
-        DOT.EventManager.fire('test', 'Hello world!');
+        DOT.EventManager.fire('logHelloWorld', 'Hello world!');
     }
 
     update() {
@@ -19,8 +18,6 @@ class RotationScript extends DOT.Script {
 
         transform.rotation.x += this.x;
         transform.rotation.y += this.y;
-        transform.position.setY(-1);
-
-        
+        transform.position.setX(-1.5);
     }
 }

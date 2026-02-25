@@ -10,6 +10,7 @@ import { Component } from "./components/Component";
 import * as Stats from "stats-js";
 import { StatisticManager } from "./managers/StatisticManager";
 
+
 /**
  * World
  */
@@ -45,7 +46,7 @@ class World {
         this.addSystem(RenderSystem);
         this.addSystem(ScriptSystem);
         this.addSystem(TransformSystem);
-        
+
     }
 
     async initialize() {

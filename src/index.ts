@@ -1,4 +1,5 @@
 // World
+export * from './Application';
 export * from './World';
 
 // Entities
@@ -31,24 +32,16 @@ export * from './managers/AssetManager';
 export * from './managers/EventManager';
 export * from './managers/StatisticManager';
 
-/*TODO:
-Assetmanager,
-cammeramangers,
-scenemanager,
-scriptAnatomy,
-replace threejs
-PhysicsSystem
-CameraSystem
-AudioSystem
-AnimationSystem
-
-SCIRPTSYSTEM
--> typescript 
--> javascript (X)
--> external library (import, exports)
--> script kann entität über this getten (X)
--> script kann events feuern über this
--> script ist klasse (X)
-
-*/
-
+// Shorthand exports for backward compatibility
+export { AnimationComponent as Animation } from './components/AnimationComponent';
+export { AudioComponent as Audio } from './components/AudioComponent';
+export { CameraComponent as Camera, CameraType } from './components/CameraComponent';
+export { LightComponent as Light } from './components/LightComponent';
+export { ModelComponent as Model, ModelType } from './components/ModelComponent';
+export { ParticleComponent as Particle } from './components/ParticleComponent';
+export { RendererComponent as Renderer } from './components/RendererComponent';
+export { RigidbodyComponent as Rigidbody } from './components/RigidbodyComponent';
+export { SceneComponent as Scene } from './components/SceneComponent';
+export { ScriptComponent as Script } from './components/ScriptComponent';
+export { SpriteComponent as Sprite } from './components/SpriteComponent';
+export { TransformComponent as Transform } from './components/TransformComponent';

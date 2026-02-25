@@ -11,15 +11,21 @@ interface Asset {
 
 class AssetManager implements Manager {
 
-    public static assets: {[key: string]: Asset};
+    private static initialized = false;
 
-    public static queue: {[key: string]: Asset};
+    public static assets: {[key: string]: Asset} = {};
+
+    public static queue: {[key: string]: Asset} = {};
 
     private static fileLoader: THREE.FileLoader;
 
     private static loadingManager: THREE.LoadingManager;
 
     constructor() {
+        if (AssetManager.initialized) {
+            return;
+        }
+        
         AssetManager.assets = {};
         AssetManager.queue = {};
         AssetManager.loadingManager = new THREE.LoadingManager();
@@ -42,6 +48,8 @@ class AssetManager implements Manager {
             console.warn('There was an error loading ' + url);
 
         };
+        
+        AssetManager.initialized = true;
 
     }
 
@@ -56,8 +64,8 @@ class AssetManager implements Manager {
 
     static async loadAsset(name: string, path?: string, tags?: string[]) {
 
-        if(this.assets[name]) {
-            return this.assets[name]
+        if(AssetManager.assets[name]) {
+            return AssetManager.assets[name]
         }
 
         if(!path) {
@@ -65,22 +73,22 @@ class AssetManager implements Manager {
             return null;
         }
 
-        return new Promise(resolve => this.fileLoader.load(path, resolve))
+        return new Promise(resolve => AssetManager.fileLoader.load(path, resolve))
             .then((res) => {
-                this.assets[name] = {name: name, path: path, value: res };
-                return this.assets[name];
+                AssetManager.assets[name] = {name: name, path: path, value: res };
+                return AssetManager.assets[name];
             });
     }
 
     static async reloadAsset(name?: string, path?: string, tags?: string[]) {
         // Get reload asset path
-        let assetPath = this.assets[name].path;
+        let assetPath = AssetManager.assets[name].path;
 
         // Delete old asset from registry
-        delete this.assets[name]
+        delete AssetManager.assets[name]
         
         // Reload asset
-        let reloadedAsset = await this.loadAsset(name, assetPath);
+        let reloadedAsset = await AssetManager.loadAsset(name, assetPath);
 
         return reloadedAsset;
     }

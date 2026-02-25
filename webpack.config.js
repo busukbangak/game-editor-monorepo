@@ -20,6 +20,7 @@ const config = {
   // it will be accessible at `window.MyLib`
   output: {
     path: PATHS.bundles,
+    filename: '[name].js',
     libraryTarget: 'umd',
     library: 'DOT',
     umdNamedDefine: true,
@@ -51,8 +52,6 @@ const config = {
     writeToDisk: true
   }
 }
-
-
 
 module.exports = (env, argv) => {
 

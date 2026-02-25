@@ -22,16 +22,15 @@ class RenderSystem extends System {
 
     initialize(entities: Entity[]) {
         this.updateActiveObjects(entities);
-        this.resizeCanvas();
+        
         if (!this.activeRenderer.canvas) {
             document.body.appendChild(this.activeRenderer.value.domElement);
         }
-
-        if (this.activeRenderer.resize) {
-            window.addEventListener('resize', () => {
-                this.resizeCanvas() 
-            });
-        }
+        
+        this.resizeCanvas();
+        
+        // Handle window resize
+        window.addEventListener('resize', () => this.resizeCanvas());
     }
 
     update(tick: number, entities: Entity[]) {

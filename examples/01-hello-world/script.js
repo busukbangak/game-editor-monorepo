@@ -1,4 +1,6 @@
-start();
+console.log(new DOT.Application());
+
+
 
 async function start() {
     // create new application
@@ -46,3 +48,6 @@ async function start() {
     // Log world
     console.log(world)
 }
+
+// Start the application
+start();
