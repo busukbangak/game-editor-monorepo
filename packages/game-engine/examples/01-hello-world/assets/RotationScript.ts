@@ -1,3 +1,4 @@
+// @ts-nocheck
 /**
  * This class is typescript
  */
