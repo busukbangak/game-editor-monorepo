@@ -22,17 +22,22 @@ export class EngineService {
     let testScript = await DOT.AssetManager.loadAsset('testScript', '/app/assets/TestScript.js');
 
     // create renderer
-    let renderer = this.app.world.addEntity()
+    let renderer = this.app.world.addEntity('Renderer')
       .addComponent(DOT.Renderer, { active: true, canvas: canvas, antialias: true, alpha: true })
       .getComponent(DOT.Renderer).value
 
     // create scene and get the component
-    let sceneComponent = this.app.world.addEntity()
+    let sceneComponent = this.app.world.addEntity('Main Scene')
       .addComponent(DOT.Scene, { active: true, background: new THREE.Color(0x959595) })
       .getComponent(DOT.Scene)
 
+    // add grid helper entity
+    this.app.world.addEntity('Grid')
+      .addComponent(DOT.Transform, { parent: sceneComponent })
+      .addComponent(DOT.Model, { type: DOT.ModelType.Grid });
+
     // create camera
-    let cameraEntity = this.app.world.addEntity()
+    let cameraEntity = this.app.world.addEntity('Main Camera')
       .addComponent(DOT.Transform, { parent: sceneComponent })
       .addComponent(DOT.Camera, { active: true, type: DOT.CameraType.Perspective })
 
@@ -46,12 +51,12 @@ export class EngineService {
     })
 
     // create model
-    let modelEntityBox = this.app.world.addEntity()
+    let modelEntityBox = this.app.world.addEntity('Box')
       .addComponent(DOT.Transform, { parent: sceneComponent })
       .addComponent(DOT.Model, { type: DOT.ModelType.Box, material: new THREE.MeshStandardMaterial({ color: 0xf28a3a, wireframe: true }) })
       .addComponent(DOT.Script, { asset: testScript, enabled: true })
 
-    let modelEntityCone = this.app.world.addEntity()
+    let modelEntityCone = this.app.world.addEntity('Cone')
       .addComponent(DOT.Transform, { parent: sceneComponent })
       .addComponent(DOT.Model, { type: DOT.ModelType.Cone, material: new THREE.MeshStandardMaterial({ color: 0x2a8af2, wireframe: false }) })
     
@@ -60,12 +65,12 @@ export class EngineService {
       .value.position.set(2, 0, 0);
     
     modelEntityCone.addComponent(DOT.Script, {
-      value: new TransformScript(cameraEntity.getComponent(DOT.Camera).value, renderer.domElement, sceneComponent.value, cameraEntity.getComponent(DOT.Script).value, modelEntityCone.getComponent(DOT.Model).value),
-      enabled: false // TODO: BUG - Doesnt disable script
+      value: new TransformScript(cameraEntity.getComponent(DOT.Camera).value, renderer.domElement, sceneComponent.value, cameraEntity.getComponent(DOT.Script).value, modelEntityCone.getComponent(DOT.Transform).value),
+      enabled: true
     })
 
     // create light
-    this.app.world.addEntity()
+    this.app.world.addEntity('Directional Light')
       .addComponent(DOT.Transform, { parent: sceneComponent })
       .addComponent(DOT.Light)
 
