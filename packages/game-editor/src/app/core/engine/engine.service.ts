@@ -76,6 +76,6 @@ export class EngineService {
 
     this.app.start();
 
-    console.log(this)
+    console.log(this.app);
   }
 }

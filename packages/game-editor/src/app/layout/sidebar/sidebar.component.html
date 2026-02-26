@@ -1,2 +1,67 @@
-<div class="container">
+<div class="sidebar-container" (mousedown)="pauseRefresh()" (focusin)="pauseRefresh()">
+  <!-- Hierarchy Panel -->
+  <div class="panel hierarchy-panel">
+    <div class="panel-header">
+      <span class="panel-title">Hierarchy</span>
+    </div>
+    <div class="panel-content">
+      <div class="entity-tree">
+        <div *ngFor="let entity of entities; trackBy: trackByEntityId" 
+             class="entity-item"
+             [class.selected]="selectedEntity === entity"
+             (click)="selectEntity(entity)">
+          <span class="entity-icon">📦</span>
+          <span class="entity-name">{{entity.name}}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Inspector Panel -->
+  <div class="panel inspector-panel">
+    <div class="panel-header">
+      <span class="panel-title">Inspector</span>
+    </div>
+    <div class="panel-content">
+      <div *ngIf="selectedEntity" class="inspector-content">
+        <div class="entity-info">
+          <h3>{{selectedEntity.name}}</h3>
+        </div>
+
+        <!-- Components List -->
+        <div class="components-list">
+          <div *ngFor="let component of selectedEntity.components; trackBy: trackByComponentType" class="component-section">
+            <div class="component-header">
+              <span class="component-name">{{component.type}}</span>
+              <label class="toggle-switch" *ngIf="component.canToggle">
+                <input type="checkbox" 
+                       [(ngModel)]="component.enabled"
+                       (change)="toggleComponent(selectedEntity, component)">
+                <span class="slider"></span>
+              </label>
+            </div>
+            <div class="component-properties" *ngIf="component.enabled">
+              <div *ngFor="let prop of component.properties; trackBy: trackByPropertyName" class="property-row">
+                <span class="property-label">{{prop.name}}:</span>
+                
+                <!-- Boolean Toggle -->
+                <label class="toggle-switch property-toggle" *ngIf="prop.editable && prop.type === 'boolean'">
+                  <input type="checkbox" 
+                         [(ngModel)]="prop.value"
+                         (change)="toggleProperty(selectedEntity, component, prop)">
+                  <span class="slider"></span>
+                </label>
+                
+                <!-- Regular Value Display -->
+                <span class="property-value" *ngIf="!prop.editable || prop.type !== 'boolean'">{{prop.value}}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div *ngIf="!selectedEntity" class="no-selection">
+        <p>Select an entity to view its components</p>
+      </div>
+    </div>
+  </div>
 </div>

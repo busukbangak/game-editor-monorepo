@@ -3,6 +3,7 @@ import { Component } from "./Component";
 import * as THREE from "three";
 import { SceneComponent } from "./SceneComponent";
 
+// TODO: wire toplevel fields properly
 class TransformComponent implements Component {
 
     parent: SceneComponent | TransformComponent
