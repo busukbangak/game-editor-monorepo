@@ -45,6 +45,16 @@ Start the game engine development server:
 npm run start:engine
 ```
 
+**Note:** Both the editor and engine use port 4200, so you can only run one at a time.
+
+#### Viewing Engine Examples
+
+After starting the engine dev server:
+1. Run `npm run start:engine`
+2. Open your browser to: `http://localhost:4200/examples/01-hello-world/`
+
+The example demonstrates the engine's ECS architecture with 3D rendering, entity creation, scripting, and lighting.
+
 ### Building
 
 Build the engine:

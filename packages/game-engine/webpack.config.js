@@ -6,6 +6,27 @@ const PATHS = {
   bundles: path.resolve(__dirname, 'build'),
 }
 
+// Custom plugin to display server info after compilation
+class ServerInfoPlugin {
+  apply(compiler) {
+    compiler.hooks.done.tap('ServerInfoPlugin', (stats) => {
+      if (stats.hasErrors()) {
+        return;
+      }
+      
+      const { port } = compiler.options.devServer;
+      console.log('\n');
+      console.log('\x1b[32m%s\x1b[0m', '  ➜ Game Engine (DOT) ready!');
+      console.log('\x1b[32m%s\x1b[0m', '  ➜ Served directory: ' + path.basename(__dirname));
+      console.log('\n  \x1b[1m%s\x1b[0m', 'Local:');
+      console.log('    \x1b[36m%s\x1b[0m', `http://localhost:${port}/`);
+      console.log('\n  \x1b[1m%s\x1b[0m', 'Examples:');
+      console.log('    \x1b[36m%s\x1b[0m', `http://localhost:${port}/examples/01-hello-world/`);
+      console.log('\n');
+    });
+  }
+}
+
 const config = {
   // These are the entry point of our library. We tell webpack to use
   // the name we assign later, when creating the bundle. We also use
@@ -34,7 +55,9 @@ const config = {
   // Activate source maps for the bundles in order to preserve the original
   // source when the user debugs the application
   devtool: 'source-map',
-  plugins: [],
+  plugins: [
+    new ServerInfoPlugin()
+  ],
   module: {
     rules: [
       {
@@ -49,7 +72,10 @@ const config = {
     contentBase: path.join(__dirname),
     contentBasePublicPath: '/',
     watchContentBase: false,
-    writeToDisk: true
+    writeToDisk: true,
+    quiet: false,
+    stats: 'minimal',
+    noInfo: false
   }
 }
 
