@@ -1,6 +1,6 @@
 # Game Editor Monorepo
 
-An experimental project for exploring ECS architecture and playing around with Three.js. This monorepo contains a game editor and game engine built from scratch as a learning exercise.
+An experimental, evolving sandbox for exploring ECS architecture with Three.js. This monorepo contains a game editor and game engine built from scratch as a long-term personal learning project.
 
 ## Structure
 
@@ -107,3 +107,8 @@ After cloning this repository for the first time:
 **Build issues**
 - Use `npm` instead of `yarn` to avoid packaging issues
 - Some scripts require `NODE_OPTIONS=--openssl-legacy-provider` for compatibility with older Angular/Node versions
+
+## Development Notes
+
+- Copilot assisted with the bottom and sidebar UI design & implementation
+- This project is an ongoing personal Three.js playground and will likely remain a continuous work in progress
