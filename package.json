@@ -13,9 +13,11 @@
     "build:engine": "npm run prod --workspace=game-engine",
     "build:all": "npm run build:engine && npm run build:editor"
   },
-  "devDependencies": {},
   "engines": {
     "node": ">=14.0.0",
     "npm": ">=7.0.0"
+  },
+  "dependencies": {
+    "es-abstract": "^1.24.1"
   }
 }

@@ -23,7 +23,7 @@
                             "src/styles.scss"
                         ],
                         "scripts": [
-                            "src/app/core/engine/build/dot.js"
+                            "../game-engine/build/dot.js"
                         ],
                         "customWebpackConfig": {
                             "path": "./angular.webpack.js"

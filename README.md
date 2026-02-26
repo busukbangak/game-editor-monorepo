@@ -21,11 +21,17 @@ An experimental project for exploring ECS architecture and playing around with T
 
 ### Installation
 
-Install all dependencies for both packages from the root:
+**Important:** This is a monorepo using npm workspaces. All dependencies must be installed from the root directory.
+
+1. Clone the repository
+2. Navigate to the root directory
+3. Install all dependencies:
 
 ```bash
 npm install
 ```
+
+**Note:** Dependencies (including Electron) are installed at the root level in `node_modules/`, not in individual package directories. This is intentional and required for the workspace setup to work correctly.
 
 ### Development
 
@@ -65,3 +71,29 @@ Both packages' git histories have been preserved and merged into this monorepo:
 ## Workspaces
 
 This monorepo uses npm workspaces to manage dependencies across packages. All packages are linked automatically, so changes in the engine are immediately available to the editor during development.
+
+## Troubleshooting
+
+### Fresh Clone Setup
+
+After cloning this repository for the first time:
+
+1. **Always run `npm install` from the root directory** - This installs dependencies for all packages
+2. **Run scripts from the root** - Use `npm run start:editor` from the root, not from inside `packages/game-editor`
+3. **Electron location** - Electron is installed at the root `node_modules/` level, not in individual packages
+
+### Common Issues
+
+**"Cannot find module 'electron'"**
+- This happens if you try to run the editor from inside `packages/game-editor` instead of the root
+- Solution: Always run commands from the root directory using the workspace scripts
+
+**Electron window shows error on startup**
+- The `main.ts` file has been configured with:
+  - `contextIsolation: false` - Required for `nodeIntegration: true` in modern Electron
+  - Correct electron path for monorepo: `path.join(__dirname, '../../node_modules', 'electron')`
+- These settings are essential for the app to start correctly
+
+**Build issues**
+- Use `npm` instead of `yarn` to avoid packaging issues
+- Some scripts require `NODE_OPTIONS=--openssl-legacy-provider` for compatibility with older Angular/Node versions

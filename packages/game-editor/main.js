@@ -104,6 +104,7 @@ function createWindow() {
         frame: false,
         webPreferences: {
             nodeIntegration: true,
+            contextIsolation: false,
             allowRunningInsecureContent: (serve) ? true : false,
             webSecurity: false
         },
@@ -111,7 +112,7 @@ function createWindow() {
     win.center();
     if (serve) {
         require('electron-reload')(__dirname, {
-            electron: require(__dirname + "/node_modules/electron")
+            electron: path.join(__dirname, '../../node_modules', 'electron')
         });
         win.loadURL('http://localhost:4200');
     }
