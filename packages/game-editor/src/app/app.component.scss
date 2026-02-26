@@ -1,24 +1,29 @@
 .grid-container {
-    width: 100%;
-    height: 100%;
+    width: 100vw;
+    height: 100vh;
     display: grid;
     grid-template-columns: 300px 1fr;
-    grid-template-rows: auto 1fr 200px;
+    grid-template-rows: 30px 1fr 200px;
     grid-template-areas: "titlebar titlebar" "sidebar showroom" "sidebar bottombar";
+    overflow: hidden;
 }
 
 app-titlebar {
     grid-area: titlebar;
+    overflow: hidden;
 }
 
 app-sidebar {
     grid-area: sidebar;
+    overflow: auto;
 }
 
 app-bottombar {
     grid-area: bottombar;
+    overflow: hidden;
 }
 
 app-showroom {
     grid-area: showroom;
+    overflow: hidden;
 }
