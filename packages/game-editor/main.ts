@@ -70,7 +70,7 @@ function createWindow(): BrowserWindow {
     y: 0,
     width: 1366,
     height: 768,
-    frame: false,
+    frame: true,
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false,
