@@ -1,3 +1,13 @@
-<div class="container">
-
+<div class="console-container">
+  <div class="console-header">
+    <span class="console-title">Console</span>
+    <button class="clear-btn" (click)="clearConsole()">Clear</button>
+  </div>
+  <div class="console-output" #consoleOutput>
+    <div *ngFor="let log of logs" [class]="'log-entry ' + log.type">
+      <span class="log-type">[{{log.type}}]</span>
+      <span class="log-time">{{log.time}}</span>
+      <span class="log-message">{{log.message}}</span>
+    </div>
+  </div>
 </div>
