@@ -96,7 +96,8 @@ class ScriptSystem extends System {
         }
 
         // Get Script class name, initialize it and put it into the scriptComponent
-        const regex = /class ([\S]+)/g;
+        // Match: class ClassName extends ...
+        const regex = /class\s+([A-Za-z_$][A-Za-z0-9_$]*)\s+extends/g;
         let match;
 
         while ((match = regex.exec(script)) !== null) {
@@ -105,6 +106,7 @@ class ScriptSystem extends System {
             }
 
             let ScriptClass = match[1];
+            
             try {
                 // Make DOT available in script scope by passing it as a parameter
                 scriptComponent.value = new Function('DOT', `return (function() { ${script}; return new ${ScriptClass}(); })()`)(DOT);

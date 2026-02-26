@@ -1,10 +1,7 @@
-import * as DOT from '../../../lib/index';
-import { Script } from '../../../lib/components/ScriptComponent';
-
 /**
  * This class is typescript
  */
-class RotationScript extends Script {
+class RotationScript extends DOT.Script{
 
     x: number = 0.01;
     y: number = 0.01;
