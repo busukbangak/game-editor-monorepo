@@ -5,12 +5,15 @@ class Entity {
 
     id: string;
 
+    name: string;
+
     tags: string[];
 
     components: Component[];
 
-    constructor() {
+    constructor(name?: string) {
         this.id = MathUtils.generateUUID();
+        this.name = name || this.id.substring(0, 8); // Generate a random name based on the UUID
         this.tags = [];
         this.components = [];
     }

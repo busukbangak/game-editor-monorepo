@@ -71,9 +71,18 @@ class World {
 
     }
 
-    addEntity(entity?: Entity) {
-        if(!entity) entity = new Entity();
-        this.entities.push(entity)
+    addEntity(name?: string): Entity;
+    addEntity(entity?: Entity): Entity;
+    addEntity(entityOrName?: string | Entity): Entity {
+        let entity: Entity;
+        if (entityOrName instanceof Entity) {
+            entity = entityOrName;
+        } else if (typeof entityOrName === 'string') {
+            entity = new Entity(entityOrName);
+        } else {
+            entity = new Entity();
+        }
+        this.entities.push(entity);
         return entity;
     }
 
