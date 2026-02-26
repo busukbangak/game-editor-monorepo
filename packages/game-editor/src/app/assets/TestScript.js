@@ -8,8 +8,7 @@ class RotationScript extends DOT.Script {
     start() {
         this.x = 0.01;
         this.y = 0.01;
-        
-        
+        console.log('Hello world!');
     }
 
     update() {
