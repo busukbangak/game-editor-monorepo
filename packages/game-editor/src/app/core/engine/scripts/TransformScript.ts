@@ -28,10 +28,34 @@ import {
 export class TransformScript {
 
     transformControls;
+    domElement;
 
     constructor(camera, domElement, scene, orbit, object) {
+        this.domElement = domElement;
         this.transformControls = new TransformControls(camera, domElement, scene, orbit);
         this.transformControls.attach(object);
+        
+        // TODO: Temporary solution to add transform controls to scene - find better way to add it to scene without accessing it from script
+        // Add keyboard controls for mode switching
+        this.onKeyDown = this.onKeyDown.bind(this);
+        window.addEventListener('keydown', this.onKeyDown);
+    }
+
+    onKeyDown(event) {
+        switch (event.key) {
+            case 'q': // Translate mode
+            case 'Q':
+                this.transformControls.setMode('translate');
+                break;
+            case 'w': // Rotate mode
+            case 'W':
+                this.transformControls.setMode('rotate');
+                break;
+            case 'e': // Scale mode
+            case 'E':
+                this.transformControls.setMode('scale');
+                break;
+        }
     }
 
     update() {
